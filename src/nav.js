@@ -1,14 +1,26 @@
 import { Link } from "react-router-dom";
 import { GoogleLogin } from '@react-oauth/google';
+import {useSelector, useDispatch } from "react-redux";
+import {logInUser,userLogin,logOutUser} from './app/userSlice'
 function NavBar() {
-    const responseMessage = async (response) => {
-      const jwtToken = await fetch(`http://localhost:3001/api/login`, {
+  const dispatch = useDispatch();
+
+  const onLogIn = async (response) => {
+      let apiResonse = await fetch(`http://localhost:3001/api/login`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({token: response.credential})
       })
-      console.log(response);
+      apiResonse=await apiResonse.json();
+      console.log(apiResonse)
+      dispatch(logInUser(apiResonse.data))
+
   };
+  const onLogOut =  () => {
+    dispatch(logOutUser())
+
+  }
+  const isLoggedIn = useSelector(userLogin);
 
   const errorMessage = (error) => {
       console.log(error);
@@ -24,7 +36,9 @@ function NavBar() {
     </Link>
   </div>
   <div className="ml-auto">
-    <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+  {!isLoggedIn && <GoogleLogin onSuccess={onLogIn} onError={errorMessage} />}
+  {isLoggedIn && <button type="button" class="btn btn-danger" onClick={onLogOut}>LogOut</button>}
+    
   </div>
 </nav>
 
