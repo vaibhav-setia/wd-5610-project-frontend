@@ -1,8 +1,10 @@
 import { configureStore , getDefaultMiddleware} from '@reduxjs/toolkit';
 import userReducer from './userSlice';
+import searchResultsSlice  from './searchResultsSlice';
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
+import {  combineReducers } from 'redux'
 
 // persistStore: The persistStore function is used to create a persisted version of the Redux store.
 //  It takes the Redux store as an argument and returns a persistor object. The persistor object provides 
@@ -24,6 +26,10 @@ const persistConfig = {
   storage,
   stateReconciler: autoMergeLevel2
 }
+// const rootReducer = combineReducers({
+//   userReducer,
+//   searchResultsSlice,
+// })
 
 const persistedReducer = persistReducer(persistConfig, userReducer);
 

@@ -14,13 +14,14 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         logInUser: (state, action) => {
+            console.log('action.payload', action.payload);
             state.login = true;
             state.accessToken = action.payload.jwtToken;
             state.id = action.payload.id;
             state.name = action.payload.name;
             state.email = action.payload.email;
             state.image_url = action.payload.picture;
-            return state;
+        
         },
         logOutUser: (state, action) => {
             state.login = false;
@@ -35,10 +36,10 @@ const userSlice = createSlice({
 
 export const {logInUser, logOutUser} = userSlice.actions;
 
-export const userLogin = state => state.user.login;
-export const userToken = state => state.user.accessToken;
-export const userName = state => state.user.name;
-export const userEmail = state => state.user.email;
-export const userImage = state => state.user.image;
+export const userLogin = state => state.login;
+export const userToken = state => state.accessToken;
+export const userName = state => state.name;
+export const userEmail = state => state.email;
+export const userImage = state => state.image;
 
 export default userSlice.reducer;
