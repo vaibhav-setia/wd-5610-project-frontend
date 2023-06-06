@@ -36,10 +36,10 @@ const userSlice = createSlice({
 
 export const {logInUser, logOutUser} = userSlice.actions;
 
-export const userLogin = state => state.login;
-export const userToken = state => state.accessToken;
-export const userName = state => state.name;
-export const userEmail = state => state.email;
-export const userImage = state => state.image;
+export const userLogin = state => state.user.login;
+export const userToken = state => state.user.accessToken;
+export const userName = state => state.user.name;
+export const userEmail = state => state.user.email;
+export const userImage = state => state.user.image;
 
 export default userSlice.reducer;
