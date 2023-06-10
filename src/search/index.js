@@ -39,8 +39,11 @@ const handlePageChange = (selectedPage) => {
               }); 
 };
   return (
-    <div>
-      <NavBar />
+    <div >
+       <NavBar />
+    <div className="bg-img">
+     
+      <div className="container">
       <SearchList data={data} criteria={criteria} />
       <ReactPaginate
                     previousLabel={"prev"}
@@ -54,6 +57,8 @@ const handlePageChange = (selectedPage) => {
                     containerClassName={"pagination"}
                     subContainerClassName={"pages pagination"}
                     activeClassName={"active"}/>
+                    </div>
+    </div>
     </div>
   );
 };
