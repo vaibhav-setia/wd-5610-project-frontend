@@ -42,6 +42,7 @@ function Profile() {
                 <option value="">Choose an option</option>
                 <option value="admin">Admin</option>
                 <option value="user">User</option>
+                <option value="moderator">Moderator</option>
                 </select>
 
                { selectedOption && <MDBBtn onClick={() => signUp()}color='info'>
