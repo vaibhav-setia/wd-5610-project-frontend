@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { GoogleLogin } from '@react-oauth/google';
 import {useSelector, useDispatch } from "react-redux";
 import {logInUser,userLogin,logOutUser} from './app/userSlice'
 function NavBar() {
   const dispatch = useDispatch();
-
+  let navigate = useNavigate();
   const onLogIn = async (response) => {
       let apiResonse = await fetch(`http://localhost:3001/api/login`, {
         method: 'POST',
@@ -12,8 +12,11 @@ function NavBar() {
         body: JSON.stringify({token: response.credential})
       })
       apiResonse=await apiResonse.json();
-      console.log(apiResonse)
-      dispatch(logInUser(apiResonse.data))
+       dispatch(logInUser(apiResonse.data))
+      console.log(apiResonse.data)
+      if(apiResonse.data.newUser){
+        navigate("/register")
+      }
 
   };
   const onLogOut =  () => {
