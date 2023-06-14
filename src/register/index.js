@@ -2,7 +2,7 @@ import NavBar from "../nav";
 import React, { useEffect, useState } from 'react';
 import {useSelector ,useDispatch} from "react-redux";
 
-import { userToken ,newUser,setOldUser} from "../app/userSlice";
+import { userToken ,newUser,setOldUser,setUserType} from "../app/userSlice";
 import { MDBBtn } from 'mdb-react-ui-kit';
 import { useNavigate } from "react-router-dom";
 
@@ -30,6 +30,7 @@ function Profile() {
     body: JSON.stringify({userType:selectedOption})
   })
   dispatch(setOldUser());
+  dispatch(setUserType(selectedOption));
   navigate("/home")
   };
   return (

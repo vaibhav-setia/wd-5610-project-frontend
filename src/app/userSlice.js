@@ -22,6 +22,7 @@ const userSlice = createSlice({
             state.email = action.payload.email;
             state.image_url = action.payload.picture;
             state.newUser= action.payload.newUser;
+            state.user_type=action.payload.type
         
         },
         logOutUser: (state, action) => {
@@ -31,14 +32,19 @@ const userSlice = createSlice({
             state.name = '';
             state.email = '';
             state.image_url = '';
+            state.user_type=''
         },
         setOldUser: (state,action)=>{
             state.newUser=false
+        },
+        setUserType: (state,action)=>{
+            console.log(action)
+            state.user_type=action.payload
         }
     },
 });
 
-export const {logInUser, logOutUser,setOldUser} = userSlice.actions;
+export const {logInUser, logOutUser,setOldUser,setUserType} = userSlice.actions;
 
 export const userLogin = state => state.user.login;
 export const userToken = state => state.user.accessToken;
