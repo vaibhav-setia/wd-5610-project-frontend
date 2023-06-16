@@ -1,24 +1,29 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Profile from "./profile";
-import Register from './register'
+import Register from "./register";
 import Home from "./home";
-import searchResults from './app/searchResultsSlice'
+import { useSelector } from "react-redux";
+import searchResults from "./app/searchResultsSlice";
 import Search from "./search";
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
 
 function App() {
+  const currentUser = useSelector((state) => state.user);
   return (
     <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/search/:criteria" element={<Search/>} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route
+          path="/profile"
+          element={<Profile profileId={currentUser.id} />}
+        />
+        <Route path="/profile/:pid" element={<Profile />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/search/:criteria" element={<Search />} />
+      </Routes>
     </BrowserRouter>
-   
   );
 }
 
