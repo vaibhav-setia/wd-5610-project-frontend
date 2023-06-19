@@ -6,7 +6,7 @@ import SearchBox from "./searchbox";
 function Home() {
 
   return (
-    <div className="container">
+    <div >
       <NavBar />
      
       <h1>Home</h1>

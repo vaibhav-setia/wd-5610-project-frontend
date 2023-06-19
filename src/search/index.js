@@ -9,56 +9,64 @@ import SearchList from "./searchList";
 import { useEffect } from "react";
 import { useState } from "react";
 import "./index.css";
-const getinitiallist = async (criteria, page) => {
-  const url =
-    `http://localhost:3001/api/search?criteria=` + criteria + "&page="+page;
 
-  let apiResonse = await fetch(url, {
+const getInitialList = async (criteria, page) => {
+  const url = `http://localhost:3001/api/search?criteria=${criteria}&page=${page}`;
+
+  const apiResponse = await fetch(url, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
-  const tjson = await apiResonse.json();
 
-  return tjson;
+  const responseJson = await apiResponse.json();
+
+  return responseJson;
 };
 
 const Search = () => {
   const [data, setData] = useState([]);
-  let { criteria } = useParams();
- 
+  const { criteria } = useParams();
+
   useEffect(() => {
-  
-    getinitiallist(criteria,"1").then((response) => {
+    getInitialList(criteria, "1").then((response) => {
       setData(response.data);
     });
-  }, []);
+  }, [criteria]);
 
-const handlePageChange = (selectedPage) => {
-    getinitiallist(criteria,selectedPage.selected+1).then((response) => {
-                setData(response.data);
-              }); 
-};
+  const handlePageChange = (selectedPage) => {
+    getInitialList(criteria, selectedPage.selected + 1).then((response) => {
+      setData(response.data);
+    });
+  };
+
   return (
-    <div >
-       <NavBar />
-    <div className="bg-img">
-     
-      <div className="container">
-      <SearchList data={data} criteria={criteria} />
-      <ReactPaginate
-                    previousLabel={"prev"}
-                    nextLabel={"next"}
-                    breakLabel={"..."}
-                    breakClassName={"break-me"}
-                    pageCount={(data.totalResults/10)}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={5}
-                    onPageChange={handlePageChange}
-                    containerClassName={"pagination"}
-                    subContainerClassName={"pages pagination"}
-                    activeClassName={"active"}/>
-                    </div>
-    </div>
+    <div>
+      <NavBar />
+      <div className="bg-img">
+        <div className="container mx-auto py-8">
+          <SearchList data={data} criteria={criteria} />
+          <div className="flex justify-center mt-4">
+            <ReactPaginate
+              previousLabel={"prev"}
+              nextLabel={"next"}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={data.totalResults / 10}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageChange}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"active"}
+              pageLinkClassName={"bg-white text-gray-700 px-3 py-1 rounded-full"}
+              previousLinkClassName={"bg-white text-gray-700 px-3 py-1 rounded-full mr-2"}
+              nextLinkClassName={"bg-white text-gray-700 px-3 py-1 rounded-full ml-2"}
+              breakLinkClassName={"bg-white text-gray-700 px-3 py-1 rounded-full"}
+              activeLinkClassName={"bg-blue-500 text-white px-3 py-1 rounded-full"}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
