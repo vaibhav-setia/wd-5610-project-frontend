@@ -29,6 +29,7 @@ const Search = () => {
 
   useEffect(() => {
     getInitialList(criteria, "1").then((response) => {
+      console.log(response)
       setData(response.data);
     });
   }, [criteria]);
