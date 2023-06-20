@@ -1,11 +1,9 @@
 import NavBar from "../nav";
-import React, { useState } from "react";
-import { useEffect } from "react";
-
+import { MDBInputGroup, MDBInput, MDBIcon, MDBBtn } from 'mdb-react-ui-kit';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import SearchBox from "./searchbox";
-
 import ReviewCard from "./reviewcard";
-
 function Home() {
   const getAllReviews = async () => {
     const url = `http://localhost:3001/api/review/getAllReviews?limit=20&pageNo=1`;
@@ -43,5 +41,6 @@ function Home() {
     </div>
   );
 }
+
 
 export default Home;

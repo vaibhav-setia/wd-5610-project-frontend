@@ -5,43 +5,45 @@ import SearchList from "./searchList";
 import { useEffect } from "react";
 import { useState } from "react";
 import "./index.css";
-const getinitiallist = async (criteria, page) => {
-  const url =
-    `http://localhost:3001/api/search?criteria=` + criteria + "&page=" + page;
 
-  let apiResonse = await fetch(url, {
+const getInitialList = async (criteria, page) => {
+  const url = `http://localhost:3001/api/search?criteria=${criteria}&page=${page}`;
+
+  const apiResponse = await fetch(url, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
-  const tjson = await apiResonse.json();
 
-  return tjson;
+  const responseJson = await apiResponse.json();
+
+  return responseJson;
 };
 
 const Search = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  let { criteria } = useParams();
+  const { criteria } = useParams();
 
   useEffect(() => {
-    getinitiallist(criteria, "1").then((response) => {
-      setLoading(false);
-      console.log(response);
-      response.data.Response === "True" ? setData(response.data) : setData([]);
+    getInitialList(criteria, "1").then((response) => {
+      console.log(response)
+      setData(response.data);
     });
-  }, []);
+  }, [criteria]);
 
   const handlePageChange = (selectedPage) => {
-    getinitiallist(criteria, selectedPage.selected + 1).then((response) => {
+    getInitialList(criteria, selectedPage.selected + 1).then((response) => {
       setData(response.data);
     });
   };
+
   return (
-    <div className="container">
+    <div>
       <NavBar />
       <div className="bg-img">
-        <div>
+        <div className="container mx-auto py-8">
           <SearchList data={data} criteria={criteria} />
+          <div className="flex justify-center mt-4">
           {data.Response === "True" ? (
             <ReactPaginate
               previousLabel={"prev"}
@@ -55,13 +57,19 @@ const Search = () => {
               containerClassName={"pagination"}
               subContainerClassName={"pages pagination"}
               activeClassName={"active"}
+              pageLinkClassName={"bg-white text-gray-700 px-3 py-1 rounded-full"}
+              previousLinkClassName={"bg-white text-gray-700 px-3 py-1 rounded-full mr-2"}
+              nextLinkClassName={"bg-white text-gray-700 px-3 py-1 rounded-full ml-2"}
+              breakLinkClassName={"bg-white text-gray-700 px-3 py-1 rounded-full"}
+              activeLinkClassName={"bg-blue-500 text-white px-3 py-1 rounded-full"}
             />
-          ) : (
-            <h1>no results found</h1>
-          )}
+            ) : (""
+            )}
+          </div>
         </div>
       </div>
-    </div>
+      </div>
+
   );
 };
 
