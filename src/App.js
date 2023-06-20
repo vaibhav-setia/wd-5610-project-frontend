@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import searchResults from "./app/searchResultsSlice";
 import Search from "./search";
 import { configureStore } from "@reduxjs/toolkit";
+import Details from "./details";
 
 function App() {
   const currentUser = useSelector((state) => state.user);
@@ -22,6 +23,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/search/:criteria" element={<Search />} />
+        <Route path="/details/:ID" element={<Details/>} />
       </Routes>
     </BrowserRouter>
   );
