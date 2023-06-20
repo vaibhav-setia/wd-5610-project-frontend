@@ -28,6 +28,7 @@ const Search = () => {
     getInitialList(criteria, "1").then((response) => {
       console.log(response)
       setData(response.data);
+      setLoading(false);
     });
   }, [criteria]);
 
@@ -42,7 +43,7 @@ const Search = () => {
       <NavBar />
       <div className="bg-img">
         <div className="container mx-auto py-8">
-          <SearchList data={data} criteria={criteria} />
+          <SearchList data={data} criteria={criteria} loading={loading}/>
           <div className="flex justify-center mt-4">
           {data.Response === "True" ? (
             <ReactPaginate

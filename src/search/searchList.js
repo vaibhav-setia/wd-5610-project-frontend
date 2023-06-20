@@ -11,7 +11,7 @@ const SearchList = (props) => {
     <div>
       <h1 className="text-2xl font-bold mb-4">Search Results</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-        {Object.keys(data).length && Object.keys(data).indexOf("Search")!=-1 ? (
+        {props.loading ? <p>Loading...</p> : Object.keys(data).length && Object.keys(data).indexOf("Search")!=-1 ? (
           data.Search.map((movie) => (
             <MovieCard
               key={movie.imdbId}
