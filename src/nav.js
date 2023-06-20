@@ -3,7 +3,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useRef } from "react";
 
-import { logInUser, userLogin, logOutUser } from "./app/userSlice";
+import { logInUser, userLogin, logOutUser, userName } from "./app/userSlice";
 import SearchBox from "./home/searchbox";
 import { useLocation } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ function NavBar() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const isLoggedIn = useSelector(userLogin);
-
+  const name = useSelector(userName);
 
   const location = useLocation();
   const currentPath = location.pathname;
@@ -61,10 +61,15 @@ function NavBar() {
             Home
           </Link>
           {isLoggedIn && 
-          <Link className="text-xl font-bold" to="/profile">
+          <Link className="text-xl font-bold mr-6" to="/profile">
             Profile
           </Link>
         }
+      
+        <span className="text-xl font-bold">
+          {isLoggedIn &&  "     Hello, " + name}
+        </span>
+       
         </div>
         {currentPath!="/home" &&
         <div className="flex items-center text-black">
