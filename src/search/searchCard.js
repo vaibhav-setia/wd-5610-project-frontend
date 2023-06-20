@@ -17,7 +17,7 @@ const MovieCard = (props) => {
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{props.title}</div>
         <p className="text-gray-700 text-base">Year: {props.year}</p>
-        <a href="#" className="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
+        <a href={"/details/"+props.id} className="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
           View Details
         </a>
       </div>

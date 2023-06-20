@@ -18,7 +18,7 @@ const SearchList = (props) => {
               title={movie.Title}
               img={movie.Poster}
               year={movie.Year}
-              id={movie.imdbId}
+              id={movie.imdbID}
             />
           ))
         ) : (
