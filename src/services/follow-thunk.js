@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { follow, getFollowStatus } from "./follow-service.js";
+import { follow, getFollowStatus, unfollow } from "./follow-service.js";
 
 export const getFollowStatusThunk = createAsyncThunk(
   "follow/getFollowStatus",
@@ -10,4 +10,9 @@ export const getFollowStatusThunk = createAsyncThunk(
 export const followThunk = createAsyncThunk(
   "follow/follow",
   async ({ followerId, followeeId }) => await follow(followerId, followeeId)
+);
+
+export const unfollowThunk = createAsyncThunk(
+  "follow/unfollow",
+  async ({ followerId, followeeId }) => await unfollow(followerId, followeeId)
 );

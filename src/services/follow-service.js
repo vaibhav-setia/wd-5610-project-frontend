@@ -14,3 +14,14 @@ export const follow = async (followerId, followeeId) => {
   });
   return response.data;
 };
+
+export const unfollow = async (followerId, followeeId) => {
+  const response = await axios.post(
+    "http://localhost:3001/api/follow/unfollow",
+    {
+      followerId: followerId,
+      followeeId: followeeId,
+    }
+  );
+  return response.data;
+};

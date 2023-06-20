@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserThunk, updateUserThunk } from "../services/profile-thunk";
 import { userToken } from "../app/userSlice";
-import { followThunk, getFollowStatusThunk } from "../services/follow-thunk";
+import {
+  followThunk,
+  getFollowStatusThunk,
+  unfollowThunk,
+} from "../services/follow-thunk";
 
 function PersonalDetails({ profileId = "" }) {
   const [editMode, setEditMode] = useState(false);
@@ -36,6 +40,13 @@ function PersonalDetails({ profileId = "" }) {
       );
       if (status.payload.status === "success") {
         setIsFollowing(true);
+      }
+    } else {
+      const status = await dispatch(
+        unfollowThunk({ followerId: currentUser.id, followeeId: profileId })
+      );
+      if (status.payload.status === "success") {
+        setIsFollowing(false);
       }
     }
   };
