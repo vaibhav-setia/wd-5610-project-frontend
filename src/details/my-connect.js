@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import { Link } from 'react-router-dom';
 
 function MyComponent(param) {
   const {id} =param;
   const [data, setData] = useState(null);
+  const [duration, setDuration] = useState(1000);
   const [displayValue, setDisplayValue] = useState('None');
+  const SubmitReview ="/submitreview/"+id;
+  const [nextLink,setNextLink]=useState("/review/"+id+"/"+duration);
+
+  const handleDropdownChange=(event)=>{
+      setDuration(event.target.value);
+      setNextLink("/review/"+id+"/"+event.target.value);
+  }
 
 
   const handleButtonClick = () => {
@@ -40,8 +49,25 @@ function MyComponent(param) {
 
   return (
     <>
-    <div>
-     
+  <div>
+  <div className="d-flex justify-content-start">
+  <Link to={SubmitReview}>
+  <button className="btn btn-danger">Submit Review</button>
+  </Link>
+  </div>
+   <div className="d-flex justify-content-end">
+    <select className="form-select" onChange={handleDropdownChange} style={{ width: '15%' }}>
+          <option value="">Select Review Duration</option>
+          <option value="0">0</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
+    <Link to={nextLink}>
+        <button className="btn btn-danger">See Reviews</button>
+      </Link>
+    {/* <ReviewForm id={id} reviewEndPeriod='30'/> */}
+    </div>
     </div>
     <div className="d-flex justify-content-center">
         <ul className='list-group'  style={{ width: '55%' }}>
@@ -134,15 +160,18 @@ function MyComponent(param) {
 
           <li className='list-group-item'>
             <div className='row'>
-              <div className='col border-end border-10'><b> <button onClick={handleButtonClick} className="btn btn-primary">Submit Review</button></b></div>
+              <div className='col border-end border-10'><b> <button onClick={handleButtonClick} className="rounded-pill btn btn-primary float-end mt-2 ps-3 pe-3 fw-bold">Submit Review</button></b></div>
               <div className='col'>{displayValue}</div>
             </div>
           </li>
+
+      
 
           
        
       </ul>
     </div>
+    
     </>
   );
 }

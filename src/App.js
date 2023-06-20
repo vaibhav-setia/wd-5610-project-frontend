@@ -4,10 +4,10 @@ import Profile from "./profile";
 import Register from "./register";
 import Home from "./home";
 import { useSelector } from "react-redux";
-import searchResults from "./app/searchResultsSlice";
 import Search from "./search";
-import { configureStore } from "@reduxjs/toolkit";
 import Details from "./details";
+import ReviewForm from "./details/review-form";
+import SubmitReview from "./details/submit-review";
 
 function App() {
   const currentUser = useSelector((state) => state.user);
@@ -24,6 +24,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/search/:criteria" element={<Search />} />
         <Route path="/details/:ID" element={<Details/>} />
+        <Route path="/review/:id/:reviewEndPeriod" element={<ReviewForm/>} />
+        <Route path="/submitreview/:id" element={<SubmitReview/>} />
       </Routes>
     </BrowserRouter>
   );
