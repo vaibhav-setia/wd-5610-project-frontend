@@ -52,5 +52,6 @@ export const userName = state => state.user.name;
 export const userEmail = state => state.user.email;
 export const userImage = state => state.user.image;
 export const newUser = state => state.user.newUser;
-
+export const userId = state => state.user.id;
+export const userType = state => state.user.user_type;
 export default userSlice.reducer;

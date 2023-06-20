@@ -1,0 +1,21 @@
+main {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+#upvote.active {
+  background: orangered;
+  color: white;
+}
+
+#downvote.active {
+  background: rgb(119, 119, 236);
+  color: white;
+}
