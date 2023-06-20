@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserThunk, updateUserThunk } from "../services/profile-thunk";
 import { userToken } from "../app/userSlice";
+import { followThunk, getFollowStatusThunk } from "../services/follow-thunk";
 
 function PersonalDetails({ profileId = "" }) {
   const [editMode, setEditMode] = useState(false);
-  const [selfProfile, setSelfProfile] = useState(false);
+  const [selfProfile, setSelfProfile] = useState("");
+  const [isFollowing, setIsFollowing] = useState(false);
   const token = useSelector(userToken);
   const [profile, setProfile] = useState({
     name: "",
@@ -27,14 +29,35 @@ function PersonalDetails({ profileId = "" }) {
     setEditMode(!editMode);
   };
 
+  const handleFollowUnfollow = async () => {
+    if (!isFollowing) {
+      const status = await dispatch(
+        followThunk({ followerId: currentUser.id, followeeId: profileId })
+      );
+      if (status.payload.status === "success") {
+        setIsFollowing(true);
+      }
+    }
+  };
+
   useEffect(() => {
     async function loadProfile() {
       const { payload } = await dispatch(getUserThunk(profileId));
-      console.log(payload.data);
       setProfile(payload.data);
       if (profileId === currentUser.id) setSelfProfile(true);
     }
+
+    async function getFollowStatus() {
+      const { payload } = await dispatch(
+        getFollowStatusThunk({
+          followerId: currentUser.id,
+          followeeId: profileId,
+        })
+      );
+      setIsFollowing(payload.data.isFollowing);
+    }
     loadProfile();
+    getFollowStatus();
   }, [profileId]);
 
   return (
@@ -45,7 +68,7 @@ function PersonalDetails({ profileId = "" }) {
           height={120}
           alt="Profile"
           className="m-1 rounded-circle"
-          src={`/images/rick.png`}
+          src={profile.image_url}
         />
       </div>
       {!editMode && <div className="mt-2 mb-2 text-center">{profile.name}</div>}
@@ -115,7 +138,12 @@ function PersonalDetails({ profileId = "" }) {
         </div>
       </div>
       {!selfProfile && (
-        <button className="btn btn-success mt-2 mb-2 w-full">Follow</button>
+        <button
+          className="btn btn-success mt-2 mb-2 w-100"
+          onClick={() => handleFollowUnfollow()}
+        >
+          {isFollowing ? "Unfollow" : "Follow"}
+        </button>
       )}
       {selfProfile && (
         <button
