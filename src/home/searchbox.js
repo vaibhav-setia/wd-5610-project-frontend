@@ -21,11 +21,11 @@ const SearchBox = () => {
 
   return (
     <div className="flex justify-center">
-      <MDBInputGroup className="w-80">
+      <MDBInputGroup>
         <input
           type="text"
           className="form-control"
-          placeholder="Search..."
+          placeholder="Search Movies Here.. Live From IMDb"
           aria-label="Search"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}

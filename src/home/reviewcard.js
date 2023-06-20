@@ -5,13 +5,9 @@ import { React, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import ModalPop from "./ModalPop";
+import "./styles.css"
 const ReviewCard = (props) => {
-  console.log(props);
   const [isShow, invokeModal] = useState(false);
-
-  const initModal = () => {
-    invokeModal(!isShow);
-  };
   const id = useSelector(userId);
   const user = useSelector(userType);
   const token = useSelector(userToken);
@@ -25,87 +21,93 @@ const ReviewCard = (props) => {
 
   const deleteReview = async () => {
     const url = `http://localhost:3001/api/review/` + movie.id;
-    let apiResonse = await fetch(url, {
+    let apiResponse = await fetch(url, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         token: token,
       },
     });
-    await apiResonse.json();
+    await apiResponse.json();
     const tdata = props.data.filter((review) => review.id !== movie.id);
     props.setData(tdata);
   };
 
-  return (
-    <div className="row">
-      <div className=" col-1 ">
-        <Vote
-          score={movie.totalUpvotes - movie.totalDownvotes}
-          reviewId={movie.id}
-          toggle={voteToggle}
-        />
-      </div>
+  const initModal = () => {
+    invokeModal(!isShow);
+  };
 
-      <div class="card col-11" style={{ width: "18rem;" }}>
-        <img
-          src={movie.url}
-          class="card-img-top"
-          alt="Not Found"
-          onError={({ currentTarget }) => {
-            currentTarget.onerror = null;
-            currentTarget.src =
-              "https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png";
-          }}
-        />
-        <div className="card-body">
-          <div className="row">
-            <h5 className="card-title col-2">movie name</h5>
-            <p className="card-text col-9">{movieDescription}</p>
-            {console.log(id + " " + movie.userId)}
-            {console.log(user)}
-            <div className="col-1">
-              {user === "admin" ||
-              user === "moderator" ||
-              (user === "user" && id === movie.userId) ? (
-                <div>
-                  <button
-                    class="btn btn-success btn-sm rounded-0"
-                    type="button"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Edit"
-                    onClick={initModal}
-                  >
-                    <FontAwesomeIcon icon={faPenToSquare} />
-                  </button>
-                  <button
-                    class="btn btn-danger btn-sm rounded-0 col-6"
-                    type="button"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Delete"
-                    onClick={() => deleteReview()}
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
-                </div>
-              ) : (
-                <div></div>
-              )}{" "}
-              <ModalPop
-                show={isShow}
-                movieDescription={movieDescription}
-                setMovieDescription={setMovieDescription}
-                movie={movie}
-                initModal={initModal}
-              />
+  return (
+    <div className="flex items-center justify-center">
+      <div className="w-3/5">
+        <div className="bg-white shadow-md rounded-md p-4 flex">
+          <div className="w-1/6">
+            <Vote
+              score={movie.totalUpvotes - movie.totalDownvotes}
+              reviewId={movie.id}
+              toggle={voteToggle}
+            />
+          </div>
+          <div className="w-1/6 flex-shrink-0">
+            <img
+              src={movie.movie[0].poster}
+              className="card-img-top h-32 w-auto object-cover"
+              alt="Not Found"
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null;
+                currentTarget.src =
+                  "https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png";
+              }}
+            />
+          </div>
+          <div className="flex flex-col flex-grow pl-4">
+            <div className="mb-2">
+              <h5 className="text-lg font-bold">{movie.movie[0].title}</h5>
+              <p className="text-gray-700 overflow-hidden overflow-ellipsis">{movieDescription}</p>
             </div>
+            <div className="flex items-center justify-between">
+  {user === "admin" ||
+  user === "moderator" ||
+  (user === "user" && id === movie.userId) ? (
+    <div className="flex items-center">
+      <button
+        className="bg-white text-black btn-sm rounded-md mr-2"
+        type="button"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Edit"
+        onClick={initModal}
+      >
+        <FontAwesomeIcon icon={faPenToSquare} className="text-black" />
+      </button>
+      <button
+        className="bg-white text-red btn-sm rounded-md mr-2"
+        type="button"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Delete"
+        onClick={deleteReview}
+      >
+        <FontAwesomeIcon icon={faTrash} className="text-red-500" />
+      </button>
+    </div>
+  ) : null}
+  <ModalPop
+    show={isShow}
+    movieDescription={movieDescription}
+    setMovieDescription={setMovieDescription}
+    movie={movie}
+    initModal={initModal}
+  />
+</div>
+
           </div>
         </div>
       </div>
     </div>
   );
+  
+  
 };
 
 export default ReviewCard;

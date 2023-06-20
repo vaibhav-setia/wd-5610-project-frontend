@@ -13,6 +13,7 @@ function NavBar() {
   let navigate = useNavigate();
   const isLoggedIn = useSelector(userLogin);
 
+
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -53,15 +54,17 @@ function NavBar() {
   };
 
   return (
-    <nav className="bg-blue-400 text-white py-4 px-6">
+    <nav className="bg-blue-500 text-white py-4 px-6">
       <div className="flex justify-between">
         <div className="flex items-center">
           <Link className="text-xl font-bold mr-6" to="/home">
             Home
           </Link>
+          {isLoggedIn && 
           <Link className="text-xl font-bold" to="/profile">
             Profile
           </Link>
+        }
         </div>
         {currentPath!="/home" &&
         <div className="flex items-center text-black">

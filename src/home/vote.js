@@ -1,16 +1,13 @@
-import "./styles.css";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { userToken, userLogin } from "../app/userSlice";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { userToken, userLogin } from "../app/userSlice";
+
 const Vote = (props) => {
-  let initstate = 0;
-  let [vote, setVote] = useState(initstate);
-  let [score, setScore] = useState(props.score);
+  const initstate = 0;
+  const [vote, setVote] = useState(initstate);
+  const [score, setScore] = useState(props.score);
   const token = useSelector(userToken);
   const isLoggedIn = useSelector(userLogin);
-
-  // isLoggedIn===false?document.getElementById("upvote").disabled = true :"";
 
   useEffect(() => {
     if (props.toggle === "upvote") {
@@ -65,11 +62,14 @@ const Vote = (props) => {
       }),
     });
   };
+
   return (
     <div>
       <button
         id="upvote"
-        className={vote === 1 ? "active" : undefined}
+        className={`btn btn-sm rounded-full focus:outline-none focus:ring-2 ${
+          vote === 1 ? "bg-green-500 text-white" : ""
+        }`}
         onClick={() => voteChange(1)}
         disabled={!isLoggedIn}
       >
@@ -78,7 +78,9 @@ const Vote = (props) => {
       <h1>{score + vote}</h1>
       <button
         id="downvote"
-        className={vote === -1 ? "active" : undefined}
+        className={`btn btn-sm rounded-full focus:outline-none focus:ring-2 ${
+          vote === -1 ? "bg-red-500 text-white" : ""
+        }`}
         onClick={() => voteChange(-1)}
         disabled={!isLoggedIn}
       >
