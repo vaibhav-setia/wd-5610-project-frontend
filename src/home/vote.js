@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { userToken, userLogin } from "../app/userSlice";
-
+import { faCircleUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Vote = (props) => {
   const initstate = 0;
   const [vote, setVote] = useState(initstate);
@@ -83,7 +84,7 @@ const Vote = (props) => {
         onClick={() => voteChange(1)}
         disabled={!isLoggedIn}
       >
-        Upvote
+        <FontAwesomeIcon icon={faCircleUp} size="2xl" />
       </button>
       <h1>{score + vote}</h1>
       <button
@@ -92,7 +93,7 @@ const Vote = (props) => {
         onClick={() => voteChange(-1)}
         disabled={!isLoggedIn}
       >
-        Downvote
+       <FontAwesomeIcon icon={faCircleUp} rotation={180} size="2xl" />
       </button>
     </div>
   );
