@@ -77,7 +77,7 @@ const Vote = (props) => {
   };
 
   return (
-    <div>
+    <div align="center">
       <button
         className={`btn btn-${vote === 1 ? 'success' : 'light'}`}
         id="upvote"
