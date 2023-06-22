@@ -66,7 +66,9 @@ const ReviewCard = (props) => {
           <div className="flex flex-col flex-grow pl-4">
             <div className="mb-2">
               <h5 className="text-lg font-bold">
+                <a href ={`/details/${movie.movieId}`} className="text-blue-500">
               {movie.movie[0].title}
+                </a>
               <span
                   style={{ marginLeft: "2%",color:"white" }}
                   type="button"
