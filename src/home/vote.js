@@ -6,31 +6,28 @@ const Vote = (props) => {
   const initstate = 0;
   const [vote, setVote] = useState(initstate);
   const [score, setScore] = useState(props.score);
-  console.log(props)
   const movie = props.movie
-
   const token = useSelector(userToken);
   const isLoggedIn = useSelector(userLogin);
   let userId=useSelector(state=>state.user.id)
-
-
+  const [voteToggle, setVoteToggle] = useState(props.toggle);
 
 
   useEffect(() => {
-    let voteToggle=""
-
-    if (movie.upvotes.find((user) => user.userId === userId)) voteToggle = "upvote";
-    else if (movie.downvotes.find((user) => user.userId === userId))
-      voteToggle = "downvote";
-    if (voteToggle === "upvote") {
-      setVote(1);
-      setScore(score - 1);
-    } else if (voteToggle === "downvote") {
+    console.log(userId)
+    console.log(movie)
+    if( movie.downvotes.find((user) => user.userId === userId)){
       setVote(-1);
       setScore(score + 1);
-    }else{
+    }else if (movie.upvotes.find((user) => user.userId === userId)){
+      setVote(1);
+      setScore(score - 1);
+    } else{
+      console.log("Hi i am here")
+      setScore(score+vote)
       setVote(0)
     }
+
   }, [userId]);
 
 
@@ -80,6 +77,7 @@ const Vote = (props) => {
 
   return (
     <div>
+      {userId}
       <button
         className={`btn btn-${vote === 1 ? 'success' : 'light'}`}
         id="upvote"
