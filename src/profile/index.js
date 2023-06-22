@@ -22,17 +22,18 @@ function Profile({ profileId = "" }) {
   }, []);
 
   return (
-    <div className=" mx-auto">
+    <div className="">
       <NavBar />
-      <div className="flex flex-wrap justify-center">
-        <div className="w-full md:w-1/4 m-4">
+      <div className="row">
+        <div className="col col-3 m-2">
           <PersonalDetails profileId={profileId} />
         </div>
-        <div className="w-full md:w-3/4 m-4">
+        <div className="col col-8 m-2">
           <ProfileSpoilers />
         </div>
       </div>
     </div>
+    
   );
 }
 

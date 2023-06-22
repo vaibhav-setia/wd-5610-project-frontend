@@ -67,6 +67,8 @@ const ReviewCard = (props) => {
             <div className="mb-2">
               <h5 className="text-lg font-bold">
               {movie.movie[0].title}
+
+          
               <span
                   style={{ marginLeft: "2%",color:"white" }}
                   type="button"
@@ -75,14 +77,15 @@ const ReviewCard = (props) => {
                   {spoilerTitle}
                 </span>
               </h5>
-                           <p className="text-gray-700 overflow-hidden overflow-ellipsis">{movieDescription}</p>
-            </div>
-            <div>
+              <div style={{marginBottom:"2%"}}>
               <a href={`/profile/${movie.userId}`} className="text-blue-500">
-            <FontAwesomeIcon icon={faUser} className="text-black" />
-              {movie.userId}
+              <FontAwesomeIcon icon={faUser} className="text-grey" />
+             {JSON.stringify(movie.user[0].name).replace('"','').replace('"','')}
               </a>
             </div>
+                           <p className="text-gray-700 overflow-hidden overflow-ellipsis">{movieDescription}</p>
+            </div>
+         
             <div className="flex items-center justify-between">
   {user === "admin" ||
   user === "moderator" ||

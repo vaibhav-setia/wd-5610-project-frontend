@@ -22,21 +22,10 @@ const userSlice = createSlice({
       state.email = payload.data.email;
       state.image_url = payload.data.picture;
       state.newUser = payload.data.newUser;
-      state.user_type = payload.data.type;
+      state.user_type = payload.data.userType;
     },
   },
   reducers: {
-    // logInUser: (state, action) => {
-    //   console.log("action.payload", action.payload);
-    //   state.user.login = true;
-    //   state.user.accessToken = action.payload.jwtToken;
-    //   state.user.id = action.payload.id;
-    //   state.user.name = action.payload.name;
-    //   state.user.email = action.payload.email;
-    //   state.user.image_url = action.payload.picture;
-    //   state.user.newUser = action.payload.newUser;
-    //   state.user.user_type = action.payload.type;
-    // },
     logOutUser: (state, action) => {
       state.login = false;
       state.accessToken = null;
