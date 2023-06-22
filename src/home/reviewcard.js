@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { userToken, userId, userType } from "../app/userSlice";
 import { React, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faPenToSquare, faUser } from "@fortawesome/free-solid-svg-icons";
 import ModalPop from "./ModalPop";
 import "./styles.css"
 const ReviewCard = (props) => {
@@ -15,7 +15,7 @@ const ReviewCard = (props) => {
   const movie = props.movie;
   const [movieDescription, setMovieDescription] = useState(movie.description);
   const spoilerTitle= movie.reviewEndPeriod!==1000?(movie.reviewEndPeriod + " Minute Spoiler"):"Full Spoiler!"
-
+  console.log(props)
 
   const deleteReview = async () => {
     const url = `http://localhost:3001/api/review/` + movie.id;
@@ -76,6 +76,12 @@ const ReviewCard = (props) => {
                 </span>
               </h5>
                            <p className="text-gray-700 overflow-hidden overflow-ellipsis">{movieDescription}</p>
+            </div>
+            <div>
+              <a href={`/profile/${movie.userId}`} className="text-blue-500">
+            <FontAwesomeIcon icon={faUser} className="text-black" />
+              {movie.userId}
+              </a>
             </div>
             <div className="flex items-center justify-between">
   {user === "admin" ||
