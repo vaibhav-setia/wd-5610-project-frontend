@@ -47,6 +47,7 @@ const ReviewCard = (props) => {
             />
           </div>
           <div className="w-1/6 flex-shrink-0">
+          <a href ={`/details/${movie.movieId}`} className="text-blue-500">
             <img
               src={movie.movie[0].poster}
               className="card-img-top h-52 w-auto object-cover"
@@ -57,7 +58,7 @@ const ReviewCard = (props) => {
                   "https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png";
               }}
             />
-
+  </a>
              {/* <div className="mt-2 flex items-center justify-center w-28 bg-blue-500  text-sm">
 
         
@@ -66,9 +67,9 @@ const ReviewCard = (props) => {
           <div className="flex flex-col flex-grow pl-4">
             <div className="mb-2">
               <h5 className="text-lg font-bold">
+                <a href ={`/details/${movie.movieId}`} className="text-blue-500">
               {movie.movie[0].title}
-
-          
+                </a>
               <span
                   style={{ marginLeft: "2%",color:"white" }}
                   type="button"
