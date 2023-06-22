@@ -40,6 +40,7 @@ function PersonalDetails({ profileId = "" }) {
       );
       if (status.payload.status === "success") {
         setIsFollowing(true);
+        setProfile({ ...profile, followers: profile.followers + 1 });
       }
     } else {
       const status = await dispatch(
@@ -47,6 +48,7 @@ function PersonalDetails({ profileId = "" }) {
       );
       if (status.payload.status === "success") {
         setIsFollowing(false);
+        setProfile({ ...profile, followers: profile.followers - 1 });
       }
     }
   };
