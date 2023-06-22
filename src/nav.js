@@ -60,16 +60,16 @@ function NavBar() {
     <nav className="bg-blue-500 py-4 px-6">
       <div className="flex justify-between">
         <div className="flex items-center">
-          <Link className="text-xl font-bold mr-6" to="/home">
+          <Link style={{color:"white",textDecoration:"none"}} className="text-xl font-bold mr-6" to="/home">
             Home
           </Link>
           {isLoggedIn && 
-          <Link className="text-xl font-bold mr-6" to="/profile">
+          <Link style={{color:"white",textDecoration:"none"}} className="text-xl font-bold mr-6" to="/profile">
             Profile
           </Link>
         }
       
-        <span className="text-xl font-bold">
+        <span className="text-xl font-bold text-white">
           {isLoggedIn &&  "     Hello, " + name}
         </span>
        

@@ -14,6 +14,7 @@ const ReviewCard = (props) => {
   let voteToggle = "";
   const movie = props.movie;
   const [movieDescription, setMovieDescription] = useState(movie.description);
+  const spoilerTitle= movie.reviewEndPeriod!==1000?(movie.reviewEndPeriod + " Minute Spoiler"):"Full Spoiler!"
 
 
   const deleteReview = async () => {
@@ -48,7 +49,7 @@ const ReviewCard = (props) => {
           <div className="w-1/6 flex-shrink-0">
             <img
               src={movie.movie[0].poster}
-              className="card-img-top h-32 w-auto object-cover"
+              className="card-img-top h-52 w-auto object-cover"
               alt="Not Found"
               onError={({ currentTarget }) => {
                 currentTarget.onerror = null;
@@ -56,15 +57,25 @@ const ReviewCard = (props) => {
                   "https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png";
               }}
             />
-             <div className="mt-2 flex items-center justify-center w-28 bg-blue-500  text-sm">
 
-              15 Minute Spoiler
-              </div>
+             {/* <div className="mt-2 flex items-center justify-center w-28 bg-blue-500  text-sm">
+
+        
+              </div> */}
           </div>
           <div className="flex flex-col flex-grow pl-4">
             <div className="mb-2">
-              <h5 className="text-lg font-bold">{movie.movie[0].title}</h5>
-              <p className="text-gray-700 overflow-hidden overflow-ellipsis">{movieDescription}</p>
+              <h5 className="text-lg font-bold">
+              {movie.movie[0].title}
+              <span
+                  style={{ marginLeft: "2%",color:"white" }}
+                  type="button"
+                  class="btn btn-primary-info btn-sm disabled badge bg-primary"
+                >
+                  {spoilerTitle}
+                </span>
+              </h5>
+                           <p className="text-gray-700 overflow-hidden overflow-ellipsis">{movieDescription}</p>
             </div>
             <div className="flex items-center justify-between">
   {user === "admin" ||
