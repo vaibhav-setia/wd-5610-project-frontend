@@ -27,7 +27,6 @@ function PersonalDetails({ profileId = "" }) {
 
   const handleEditMode = () => {
     if (editMode) {
-      console.log(profile);
       dispatch(updateUserThunk({ token: token, profile: profile }));
     }
     setEditMode(!editMode);
@@ -142,12 +141,22 @@ function PersonalDetails({ profileId = "" }) {
           <div className="text-center">
             {profile.spoilers} <br /> Spoilers
           </div>
-          <div className="text-center">
-            {profile.following} <br /> Following
-          </div>
-          <div className="text-center">
-            {profile.followers} <br /> Followers
-          </div>
+          <a
+            href={`/following/${profileId}`}
+            className="text-decoration-none link-dark"
+          >
+            <div className="text-center">
+              {profile.following} <br /> Following
+            </div>
+          </a>
+          <a
+            href={`/followers/${profileId}`}
+            className="text-decoration-none link-dark"
+          >
+            <div className="text-center">
+              {profile.followers} <br /> Followers
+            </div>
+          </a>
         </div>
       </div>
       {!selfProfile && (
