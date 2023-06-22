@@ -1,7 +1,7 @@
 import NavBar from "../nav";
 import { MDBInputGroup, MDBInput, MDBIcon, MDBBtn } from 'mdb-react-ui-kit';
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import SearchBox from "./searchbox";
 import ReviewCard from "./reviewcard";
 
@@ -17,14 +17,14 @@ function Home() {
 
     return jsonResponse;
   };
-
+  let userId=useSelector(state=>state.user.id)
   let [data, setData] = useState([]);
 
   useEffect(() => {
     getAllReviews().then((response) => {
       setData(response.data);
     });
-  }, []);
+  }, [userId]);
 
   console.log(data);
 
