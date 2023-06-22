@@ -1,21 +1,72 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
+import { userToken } from '../app/userSlice';
+import { useSelector } from "react-redux";
 
+import './popUp.css';
 
-
-function MyComponent(param) {
+function ReviewPopUp(param) {
   const {id} =param;
+  const [showPopup, setShowPopup] = useState(false);
   const [data, setData] = useState(null);
   const [duration, setDuration] = useState(1000);
   const [displayValue, setDisplayValue] = useState('None');
   const SubmitReview ="/submitreview/"+id;
   const [nextLink,setNextLink]=useState("/review/"+id+"/"+duration);
+  const token = useSelector(userToken);
+  let [review, setReview] = useState('');
+  let [reviewEndPeriod, setReviewEndPeriod] = useState(1000);
 
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+    setReview('');
+  };
 
+  const handleClick = () => {
+    if (review === null || review.length === 0) {
+        // Review is null or empty
+        
+      }
+      else{
+    const postData ={
+        "description":review,
+        "reviewEndPeriod":reviewEndPeriod,
+        "movie":
+            {"Title":data.Title,
+            "Year":data.Year,
+            "imdbID":data.imdbID,
+            "Type":data.Type,
+            "Poster":data.Poster
+            }
+        };
+
+    fetch('http://localhost:3001/api/review', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        token: token,
+      },
+      body: JSON.stringify(postData)
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response data
+        console.log(data);
+      })
+      .catch(error => {
+        // Handle any errors
+        console.error(error);
+      });
+    }
+      setShowPopup(!showPopup);
+  };
+
+  
 
   const handleDropdownChange=(event)=>{
       setDuration(event.target.value);
+      setReviewEndPeriod(event.target.value);
       setNextLink("/review/"+id+"/"+event.target.value);
   }
 
@@ -53,27 +104,73 @@ function MyComponent(param) {
 
   return (
     <>
-    <>
-  <div>
-  <div className="d-flex justify-content-start">
-  <Link to={SubmitReview}>
-  <button className="btn btn-danger">Submit Review</button>
-  </Link>
-  </div>
+
+    <div className='row'>
+    {/* <button onClick={togglePopup}>Open Pop-up</button> */}
+   
+
+    {showPopup && (
+      <div className='popup'>
+      
+        <div className="row">
+            <div className="col-8">
+                <textarea value={review} placeholder="My Review"
+                className="form-control border-0"
+                onChange={(event) => setReview(event.target.value)}>
+                </textarea>
+             </div>
+             <div className="col-4">
+             <select className="form-select" onChange={handleDropdownChange} >
+                <option value="">Select Review Duration</option>
+                <option value="0">0</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="1000">All Time</option>
+            </select>
+            <button onClick={handleClick}>
+                     Submit</button>
+            </div>
+       </div>
+        {/* <p>in submit review for movie {id} end period {reviewEndPeriod}: {review}</p> */}
+       
+      </div>
+    )}
+    
+    <div className='col'>
+    {!showPopup && (
+        <div className="d-flex justify-content-start">
+
+        <button className="btn btn-danger btn-lg" onClick={togglePopup}>Submit Review</button>
+
+        </div>
+    )}
+    </div>
+    <div className='col'>
+    {!showPopup && (
+    
+  
+  
    <div className="d-flex justify-content-end">
-    <select className="form-select" onChange={handleDropdownChange} style={{ width: '15%' }}>
+    <select className="form-select" onChange={handleDropdownChange}>
           <option value="">Select Review Duration</option>
           <option value="0">0</option>
           <option value="15">15</option>
           <option value="20">20</option>
           <option value="30">30</option>
+          <option value="1000">All Time</option>
         </select>
     <Link to={nextLink}>
         <button className="btn btn-danger">See Reviews</button>
       </Link>
     {/* <ReviewForm id={id} reviewEndPeriod='30'/> */}
+    </div>)}
+
     </div>
     </div>
+  {!showPopup && (
+    <>
+    
     <div className="d-flex justify-content-center">
         <ul className='list-group'  style={{ width: '55%' }}>
           <li className='list-group-item d-flex justify-content-center align-items-center'><img src={data.Poster} height={300} width={250}alt='not found'/></li>
@@ -163,12 +260,6 @@ function MyComponent(param) {
             </div>
           </li>
 
-          <li className='list-group-item'>
-            <div className='row'>
-              <div className='col border-end border-10'><b> <button onClick={handleButtonClick} className="rounded-pill btn btn-primary float-end mt-2 ps-3 pe-3 fw-bold">Submit Review</button></b></div>
-              <div className='col'>{displayValue}</div>
-            </div>
-          </li>
 
       
 
@@ -177,10 +268,10 @@ function MyComponent(param) {
       </ul>
     </div>
     </>
-    
+    )}
     
     </>
   );
 }
 
-export default MyComponent;
+export default ReviewPopUp;
