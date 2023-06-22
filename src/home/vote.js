@@ -73,7 +73,7 @@ const Vote = (props) => {
         token: token,
       },
       body: JSON.stringify({
-        review_id: review_id,
+        reviewId: review_id,
       }),
     });
   };
