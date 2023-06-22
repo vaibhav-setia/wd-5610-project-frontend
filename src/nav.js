@@ -57,7 +57,7 @@ function NavBar() {
   };
 
   return (
-    <nav className="bg-blue-500 text-white py-4 px-6">
+    <nav className="bg-blue-500 py-4 px-6">
       <div className="flex justify-between">
         <div className="flex items-center">
           <Link className="text-xl font-bold mr-6" to="/home">

@@ -56,7 +56,7 @@ const ReviewCard = (props) => {
                   "https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png";
               }}
             />
-             <div className="mt-2 flex items-center justify-center w-28 bg-blue-500 text-white  text-sm">
+             <div className="mt-2 flex items-center justify-center w-28 bg-blue-500  text-sm">
 
               15 Minute Spoiler
               </div>

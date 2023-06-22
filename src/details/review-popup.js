@@ -174,7 +174,7 @@ function ReviewPopUp(param) {
     <div className="d-flex justify-content-center">
         <ul className='list-group'  style={{ width: '55%' }}>
           <li className='list-group-item d-flex justify-content-center align-items-center'><img src={data.Poster} height={300} width={250}alt='not found'/></li>
-          <li className='list-group-item bg-primary text-white'>
+          <li className='list-group-item bg-primary'>
             <div className='row '>
               <div className='col border-end border-10'><b>Title</b></div>
               <div className='col  d-flex justify-content-center align-items-center'><b>{data.Title}</b></div>

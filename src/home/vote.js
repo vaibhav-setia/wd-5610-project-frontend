@@ -22,8 +22,6 @@ const Vote = (props) => {
     if (movie.upvotes.find((user) => user.userId === userId)) voteToggle = "upvote";
     else if (movie.downvotes.find((user) => user.userId === userId))
       voteToggle = "downvote";
-
-      
     if (voteToggle === "upvote") {
       setVote(1);
       setScore(score - 1);
@@ -83,10 +81,8 @@ const Vote = (props) => {
   return (
     <div>
       <button
+        className={`btn btn-${vote === 1 ? 'success' : 'light'}`}
         id="upvote"
-        className={`btn btn-sm rounded-full focus:outline-none focus:ring-2 ${
-          vote === 1 ? "bg-green-500 text-white" : ""
-        }`}
         onClick={() => voteChange(1)}
         disabled={!isLoggedIn}
       >
@@ -94,10 +90,8 @@ const Vote = (props) => {
       </button>
       <h1>{score + vote}</h1>
       <button
+        className={`btn btn-${vote === -1 ? 'danger' : 'light'}`}
         id="downvote"
-        className={`btn btn-sm rounded-full focus:outline-none focus:ring-2 ${
-          vote === -1 ? "bg-red-500 text-white" : ""
-        }`}
         onClick={() => voteChange(-1)}
         disabled={!isLoggedIn}
       >
@@ -105,6 +99,6 @@ const Vote = (props) => {
       </button>
     </div>
   );
-};
+  }  
 
 export default Vote;

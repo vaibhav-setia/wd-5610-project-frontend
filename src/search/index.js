@@ -62,7 +62,7 @@ const Search = () => {
               previousLinkClassName={"bg-white text-gray-700 px-3 py-1 rounded-full mr-2"}
               nextLinkClassName={"bg-white text-gray-700 px-3 py-1 rounded-full ml-2"}
               breakLinkClassName={"bg-white text-gray-700 px-3 py-1 rounded-full"}
-              activeLinkClassName={"bg-blue-500 text-white px-3 py-1 rounded-full"}
+              activeLinkClassName={"bg-blue-500  px-3 py-1 rounded-full"}
             />
             ) : (""
             )}
