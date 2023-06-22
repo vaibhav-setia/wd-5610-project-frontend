@@ -10,11 +10,12 @@ function Profile() {
   const [selectedOption, setSelectedOption] = useState(null);
   const dispatch = useDispatch();
   const token = useSelector(userToken);
-  const isNewUser = useSelector(newUser);
-  useEffect(() => {
-    if (!isNewUser) navigate("/home");
-  }, []);
-  let navigate = useNavigate();
+  console.log("in register")
+  // const isNewUser = useSelector(newUser);
+  // useEffect(() => {
+  //   if (!isNewUser) navigate("/home");
+  // }, []);
+   let navigate = useNavigate();
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);

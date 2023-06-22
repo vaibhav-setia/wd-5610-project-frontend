@@ -15,9 +15,6 @@ const ReviewCard = (props) => {
   const movie = props.movie;
   const [movieDescription, setMovieDescription] = useState(movie.description);
 
-  if (movie.upvotes.find((user) => user.userId === id)) voteToggle = "upvote";
-  else if (movie.downvotes.find((user) => user.userId === id))
-    voteToggle = "downvote";
 
   const deleteReview = async () => {
     const url = `http://localhost:3001/api/review/` + movie.id;
@@ -45,7 +42,7 @@ const ReviewCard = (props) => {
             <Vote
               score={movie.totalUpvotes - movie.totalDownvotes}
               reviewId={movie.id}
-              toggle={voteToggle}
+              movie={props.movie}
             />
           </div>
           <div className="w-1/6 flex-shrink-0">
@@ -59,6 +56,10 @@ const ReviewCard = (props) => {
                   "https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png";
               }}
             />
+             <div className="mt-2 flex items-center justify-center w-28 bg-blue-500 text-white  text-sm">
+
+              15 Minute Spoiler
+              </div>
           </div>
           <div className="flex flex-col flex-grow pl-4">
             <div className="mb-2">
