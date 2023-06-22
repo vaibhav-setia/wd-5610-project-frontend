@@ -1,13 +1,14 @@
 import NavBar from "../nav";
 import { useParams } from "react-router-dom";
-import MyComponent from "./my-connect";
+// import MyComponent from "./my-connect";
+import ReviewPopUp from "./review-popup";
 
 const Details=()=>{
     let { ID } = useParams();
     return(
         <div >
        <NavBar />
-       <MyComponent id={ID} />
+       <ReviewPopUp id={ID} />
        
        </div>
     );

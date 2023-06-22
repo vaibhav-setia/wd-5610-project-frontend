@@ -88,7 +88,7 @@ function SubmitReview(){
             <NavBar/>
         <div className="row">
             <div className="col">
-            {/* {totaldata.Title} */}
+            {totaldata.Title}
             {/* "Title":{totaldata.Title},
                 "Year":{totaldata.Year},
                 "imdbID":{totaldata.imdbID},
