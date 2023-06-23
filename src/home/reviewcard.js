@@ -5,13 +5,13 @@ import { React, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare, faUser } from "@fortawesome/free-solid-svg-icons";
 import ModalPop from "./ModalPop";
+import { Link } from "react-router-dom";
 import "./styles.css"
 const ReviewCard = (props) => {
   const [isShow, invokeModal] = useState(false);
   const id = useSelector(userId);
   const user = useSelector(userType);
   const token = useSelector(userToken);
-  let voteToggle = "";
   const movie = props.movie;
   const [movieDescription, setMovieDescription] = useState(movie.description);
   const spoilerTitle= movie.reviewEndPeriod!==1000?(movie.reviewEndPeriod + " Minute Spoiler"):"Full Spoiler!"
@@ -47,7 +47,7 @@ const ReviewCard = (props) => {
             />
           </div>
           <div className="w-1/6 flex-shrink-0">
-          <a href ={`/details/${movie.movieId}`} className="text-blue-500">
+            <Link to={`/details/${movie.movieId}`} className="text-blue-500">
             <img
               src={movie.movie[0].poster}
               className="card-img-top h-52 w-auto object-cover"
@@ -58,20 +58,15 @@ const ReviewCard = (props) => {
                   "https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png";
               }}
             />
-  </a>
-             {/* <div className="mt-2 flex items-center justify-center w-28 bg-blue-500  text-sm">
-
-        
-              </div> */}
+  </Link>
           </div>
           <div className="flex flex-col flex-grow pl-4">
             <div className="mb-2">
               <h5 className="text-lg font-bold">
-                <a href ={`/details/${movie.movieId}`} className=" no-underline ">
+                <Link to={`/details/${movie.movieId}`} className=" no-underline ">
               {movie.movie[0].title}
-                </a>
+              </Link>
               <span
-                  style={{ marginLeft: "2%",color:"white" }}
                   type="button"
                   class="btn btn-primary-info btn-sm disabled badge bg-primary"
                 >
@@ -79,10 +74,10 @@ const ReviewCard = (props) => {
                 </span>
               </h5>
               <div style={{marginBottom:"2%"}}>
-              <a href={`/profile/${movie.userId}`} className="text-blue-500">
+                <Link to={`/profile/${movie.userId}`} className="text-blue-500">              
               <FontAwesomeIcon icon={faUser} className="text-grey" />
              {JSON.stringify(movie.user[0].name).replace('"','').replace('"','')}
-              </a>
+             </Link>
             </div>
                            <p className="text-gray-700 overflow-hidden overflow-ellipsis">{movieDescription}</p>
             </div>

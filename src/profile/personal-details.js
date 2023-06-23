@@ -7,6 +7,7 @@ import {
   getFollowStatusThunk,
   unfollowThunk,
 } from "../services/follow-thunk";
+import { Link } from "react-router-dom";
 
 function PersonalDetails({ profileId = "" }) {
   const [editMode, setEditMode] = useState(false);
@@ -141,22 +142,18 @@ function PersonalDetails({ profileId = "" }) {
           <div className="text-center">
             {profile.spoilers} <br /> Spoilers
           </div>
-          <a
-            href={`/following/${profileId}`}
-            className="text-decoration-none link-dark"
-          >
+          <Link to={`/following/${profileId}`} className="text-decoration-none link-dark">
             <div className="text-center">
               {profile.following} <br /> Following
             </div>
-          </a>
-          <a
-            href={`/followers/${profileId}`}
+            </Link>
+            <Link to={`/followers/${profileId}`}
             className="text-decoration-none link-dark"
           >
             <div className="text-center">
               {profile.followers} <br /> Followers
             </div>
-          </a>
+            </Link>
         </div>
       </div>
       {!selfProfile && (

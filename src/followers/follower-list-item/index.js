@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 function FollowerCard(props) {
   return (
     <div className="flex items-center justify-center">
@@ -13,9 +13,9 @@ function FollowerCard(props) {
             src={props.follow.user[0].image_url}
           />
         </div>
-        <a href={`/profile/${props.follow.user[0].id}`}>
+        <Link to={`/profile/${props.follow.user[0].id}`}>
           <div className="w-3/4 m-4">{props.follow.user[0].name}</div>
-        </a>
+        </Link>
       </div>
     </div>
   );

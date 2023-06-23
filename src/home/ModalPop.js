@@ -9,7 +9,6 @@ const ModalPop = (props) => {
   const [editmovieDescription, setEditMovieDescription] = useState(
     props.movieDescription
   );
-
   const editReview = async () => {
     const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/` + props.movie.id;
     let apiResonse = await fetch(url, {
@@ -28,6 +27,11 @@ const ModalPop = (props) => {
     props.initModal();
   };
 
+  const closeModal = () => {
+    setEditMovieDescription(props.movieDescription);
+    props.initModal();
+  };
+
   return (
     <div>
       <Modal show={isShow}>
@@ -42,7 +46,7 @@ const ModalPop = (props) => {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={props.initModal} className="btn btn-sm">
+          <Button variant="danger" onClick={closeModal} className="btn btn-sm">
             Close
           </Button>
           <Button variant="dark" onClick={editReview} className="btn btn-sm">
