@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Profile from "./profile";
 import Register from "./register";
@@ -13,7 +13,7 @@ import FollowersList from "./followers";
 function App() {
   const currentUser = useSelector((state) => state.user);
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route
@@ -36,7 +36,7 @@ function App() {
           element={<FollowersList title="Following" />}
         />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
