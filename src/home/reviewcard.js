@@ -17,6 +17,7 @@ const ReviewCard = (props) => {
   const user = useSelector(userType);
   const token = useSelector(userToken);
   const movie = props.movie;
+  const showToggles = props.showToggles==false?false:true
   const [movieDescription, setMovieDescription] = useState(movie.description);
   const spoilerTitle =
     movie.reviewEndPeriod !== 1000
@@ -47,13 +48,13 @@ const ReviewCard = (props) => {
     <div className="flex items-center justify-center">
       <div className="w-4/5">
         <div className="bg-white shadow-md rounded-md p-4 flex">
-          <div className="w-1/6">
+          {showToggles && <div className="w-1/6">
             <Vote
               score={movie.totalUpvotes - movie.totalDownvotes}
               reviewId={movie.id}
               movie={props.movie}
             />
-          </div>
+          </div>}
           <div className=" flex-shrink-0">
             <Link to={`/details/${movie.movieId}`} className="text-blue-500">
               <img
@@ -98,7 +99,7 @@ const ReviewCard = (props) => {
               </p>
             </div>
 
-            <div className="flex items-center justify-between">
+            {showToggles && <div className="flex items-center justify-between">
               {user === "admin" ||
               user === "moderator" ||
               (user === "user" && id === movie.userId) ? (
@@ -135,7 +136,7 @@ const ReviewCard = (props) => {
                 movie={movie}
                 initModal={initModal}
               />
-            </div>
+            </div>}
           </div>
         </div>
       </div>

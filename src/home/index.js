@@ -70,7 +70,7 @@ function Home() {
         </div>
         {userId && (
           <div className="col-span-3 grid grid-cols-1 mt-8">
-            <ProfileSpoilers profileId={userId} />
+            <ProfileSpoilers profileId={userId} showToggles={false}/>
           </div>
         )}
       </div>

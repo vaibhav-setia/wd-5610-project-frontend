@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import ReviewCard from "../home/reviewcard";
 import { getAllReviewsForUserThunk } from "../services/profile-thunk";
 
-function ProfileSpoilers({ profileId = "" }) {
+function ProfileSpoilers({ profileId = "" , showToggles=true}) {
   let [data, setData] = useState([]);
   let [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -33,6 +33,7 @@ function ProfileSpoilers({ profileId = "" }) {
             data={data}
             setData={setData}
             key={movie.id}
+            showToggles = {showToggles}
           />
         ))
       ) : (
