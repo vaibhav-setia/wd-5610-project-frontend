@@ -24,14 +24,14 @@ const ReviewCard = (props) => {
       : "Full Spoiler!";
   console.log(props);
 
-  const deleteReview = async () => {
-    const url =
-      `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/` + movie.id;
+  const deleteReview = async (userId) => {
+    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/` + movie.id;
     let apiResponse = await fetch(url, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         token: token,
+        userId : userId,
       },
     });
     await apiResponse.json();
