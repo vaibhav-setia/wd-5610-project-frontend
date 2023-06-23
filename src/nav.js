@@ -74,6 +74,14 @@ function NavBar() {
           {!isLoggedIn && (
             <GoogleLogin onSuccess={onLogIn} onError={errorMessage} />
           )}
+                {
+            isLoggedIn && type!=null && (
+              <label className="bg-sky-300 text-white px-2 py-2 mr-2 rounded">
+
+               {type}
+              </label>
+            )
+          }
           {
             isLoggedIn && type!=null && (
               <label className="bg-sky-300 text-white px-2 py-2 mr-2 rounded">

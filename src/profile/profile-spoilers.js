@@ -18,7 +18,14 @@ function ProfileSpoilers({ profileId = "" }) {
   }, [profileId]);
   return (
     <div>
-      <h2 className="ms-5 mb-5">Your spoilers</h2>
+     
+      <div className=" py-8">
+            <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h1 className="text-blue-500 text-4xl font-bold text-center animate-fade-in">
+              Your spoilers
+              </h1>
+            </div>
+          </div>
       {loading ? Object.keys(data).length ? (
         data.map((movie) => (
           <ReviewCard
