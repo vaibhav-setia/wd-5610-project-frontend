@@ -25,7 +25,7 @@ const SearchBox = () => {
         <input
           type="text"
           className="form-control"
-          placeholder="Search Movies Here.. Live From IMDb"
+          placeholder="Search Movies Here.. Live From OMDb"
           aria-label="Search"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}

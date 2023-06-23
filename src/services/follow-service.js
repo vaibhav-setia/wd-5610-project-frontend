@@ -25,3 +25,17 @@ export const unfollow = async (followerId, followeeId) => {
   );
   return response.data;
 };
+
+export const getFollowers = async (userId) => {
+  const response = await axios.get(
+    `http://localhost:3001/api/follow/followers/${userId}`
+  );
+  return response.data;
+};
+
+export const getFollowing = async (userId) => {
+  const response = await axios.get(
+    `http://localhost:3001/api/follow/following/${userId}`
+  );
+  return response.data;
+};

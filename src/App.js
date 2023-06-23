@@ -8,6 +8,7 @@ import Search from "./search";
 import Details from "./details";
 import ReviewForm from "./details/review-form";
 import SubmitReview from "./details/submit-review";
+import FollowersList from "./followers";
 
 function App() {
   const currentUser = useSelector((state) => state.user);
@@ -23,9 +24,17 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/search/:criteria" element={<Search />} />
-        <Route path="/details/:ID" element={<Details/>} />
-        <Route path="/review/:id/:reviewEndPeriod" element={<ReviewForm/>} />
-        <Route path="/submitreview/:id" element={<SubmitReview/>} />
+        <Route path="/details/:ID" element={<Details />} />
+        <Route path="/review/:id/:reviewEndPeriod" element={<ReviewForm />} />
+        <Route path="/submitreview/:id" element={<SubmitReview />} />
+        <Route
+          path="/followers/:userId"
+          element={<FollowersList title="Followers" />}
+        />
+        <Route
+          path="/following/:userId"
+          element={<FollowersList title="Following" />}
+        />
       </Routes>
     </BrowserRouter>
   );

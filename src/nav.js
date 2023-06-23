@@ -3,7 +3,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useRef } from "react";
 
-import { logInUser, userLogin, logOutUser, userName,newUser,setOldUser } from "./app/userSlice";
+import { logInUser, userLogin, logOutUser, userName,newUser,setOldUser, userType } from "./app/userSlice";
 import SearchBox from "./home/searchbox";
 import { useLocation } from 'react-router-dom';
 import { loginThunk } from "./app/user-thunks";
@@ -14,7 +14,7 @@ function NavBar() {
   const isLoggedIn = useSelector(userLogin);
   const name = useSelector(userName);
   const isNewUser=useSelector(newUser)
-
+  const type = useSelector(userType);
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -83,6 +83,14 @@ function NavBar() {
           {!isLoggedIn && (
             <GoogleLogin onSuccess={onLogIn} onError={errorMessage} />
           )}
+          {
+            isLoggedIn && type!=null && (
+              <label className="bg-sky-300 text-white px-2 py-2 mr-2 rounded">
+
+               {type}
+              </label>
+            )
+          }
           {isLoggedIn && (
             <button
               type="button"
