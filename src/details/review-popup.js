@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { userToken } from '../app/userSlice';
+import ReviewCard from '../home/reviewcard';
+import { Modal, Button, Form } from 'react-bootstrap';
 
 const ReviewPopUp = ({ id }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [data, setData] = useState(null);
-  const [duration, setDuration] = useState(1000);
-  const [displayValue, setDisplayValue] = useState('None');
-  const [nextLink, setNextLink] = useState(`/review/${id}/${duration}`);
-
   const token = useSelector(userToken);
   const [review, setReview] = useState('');
   const [reviewEndPeriod, setReviewEndPeriod] = useState(1000);
+
+  const [reviewEndPeriodPopup, setReviewEndPeriodPopup] = useState(1000);
+  const [reviewList, setReviewList] = useState('');
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
@@ -27,7 +27,7 @@ const ReviewPopUp = ({ id }) => {
 
     const postData = {
       description: review,
-      reviewEndPeriod: reviewEndPeriod,
+      reviewEndPeriod: reviewEndPeriodPopup,
       movie: {
         Title: data.Title,
         Year: data.Year,
@@ -48,6 +48,8 @@ const ReviewPopUp = ({ id }) => {
       .then((response) => response.json())
       .then((data) => {
         // Handle the response data
+        getAllReviews();
+        setReviewEndPeriodPopup(1000)
         console.log(data);
       })
       .catch((error) => {
@@ -58,19 +60,34 @@ const ReviewPopUp = ({ id }) => {
     setShowPopup(!showPopup);
   };
 
-  const handleDropdownChange = (event) => {
-    const selectedDuration = event.target.value;
-    setDuration(selectedDuration);
-    setReviewEndPeriod(selectedDuration);
-    setNextLink(`/review/${id}/${selectedDuration}`);
+  const getAllReviews = async () => {
+   
+    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviewsForMoviePeriod?pageNo=1&limit=5&movieId=${id}&reviewEndPeriod=`+reviewEndPeriod;
+
+    let apiResponse = await fetch(url, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const jsonResponse = await apiResponse.json();
+    setReviewList(jsonResponse.data);
   };
 
-  const handleButtonClick = () => {
-    const userInput = window.prompt('Enter a value:');
-    if (userInput !== null) {
-      setDisplayValue(userInput);
-    }
+  useEffect(() => {
+    getAllReviews();
+  }, []);
+
+  const handleDropdownChange = (event) => {
+    const selectedDuration = event.target.value;
+    setReviewEndPeriod(selectedDuration)
+    getAllReviews();
   };
+
+  const handleDropdownChangePopup = (event) => {
+    const selectedDuration = event.target.value;
+  setReviewEndPeriodPopup(selectedDuration);
+  
+  };
+
 
   const fetchData = async () => {
     try {
@@ -96,54 +113,60 @@ const ReviewPopUp = ({ id }) => {
 
   return (
     <>
-        <style>
+      <style>
         {`
-        
           .list-group-item {
             border-left: none;
             border-right: none;
-      
-       
           }
         `}
       </style>
 
-      <div className="flex flex-row">
-        {showPopup ? (
-          <div className="fixed inset-0 flex items-center justify-center bg-black ">
-            <div className="bg-white p-8 rounded-lg">
-              <textarea
-                value={review}
-                placeholder="My Review"
-                className="form-control border border-gray-300 rounded-lg p-2 mb-4"
-                onChange={(event) => setReview(event.target.value)}
-              ></textarea>
-              <div className="flex justify-between">
-                <select
-                  className="form-select mr-2"
-                  onChange={handleDropdownChange}
-                >
-                  <option value="">Select Review Duration</option>
-                  <option value="0">0</option>
-                  <option value="15">15</option>
-                  <option value="20">20</option>
-                  <option value="30">30</option>
-                  <option value="1000">All Time</option>
-                </select>
-                <button
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg"
-                  onClick={handleClick}
-                >
-                  Submit
-                </button>
-              </div>
-            </div>
-          </div>
-        ) : (
+      <div
+        className="flex justify-center"
+        style={{ width: '80%', marginLeft: '10%', marginTop: '2%', marginBottom: '2%' }}
+      >
+        {showPopup &&
+          <Modal show={showPopup} onHide={togglePopup} centered>
+            <Modal.Header closeButton>
+              <Modal.Title>Submit Review</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Form.Group controlId="reviewTextArea">
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    value={review}
+                    placeholder="My Review"
+                    onChange={(event) => setReview(event.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group controlId="reviewEndPeriodSelect">
+                  <Form.Label>Review End Period</Form.Label>
+                  <Form.Control as="select" onChange={handleDropdownChangePopup}>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option selected value="1000">All Time</option>
+                  </Form.Control>
+                </Form.Group>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button className="bg-red-500 text-white px-4 py-2 rounded-lg" onClick={togglePopup}>
+                Close
+              </Button>
+              <Button className="bg-blue-500 text-white px-4 py-2 rounded-lg" onClick={handleClick}>
+                Submit
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        }
           <>
             <div className="flex-grow">
               <button
-                className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg"
                 onClick={togglePopup}
               >
                 Submit Review
@@ -151,28 +174,19 @@ const ReviewPopUp = ({ id }) => {
             </div>
             <div className="flex-grow">
               <div className="flex justify-end items-center">
-                <select
-                  className="form-select mr-2"
-                  onChange={handleDropdownChange}
-                >
-                  <option value="">Select Review Duration</option>
-                  <option value="0">0</option>
+                <select className="form-select mr-2" onChange={handleDropdownChange}>
                   <option value="15">15</option>
                   <option value="20">20</option>
                   <option value="30">30</option>
-                  <option value="1000">All Time</option>
+                  <option selected value="1000">All Time</option>
                 </select>
-                <Link to={nextLink}>
-                  <button className="bg-red-500 text-white px-4 py-2 rounded-lg">
-                    See Reviews
-                  </button>
-                </Link>
               </div>
             </div>
           </>
-        )}
+        
       </div>
-      {!showPopup && (
+
+    
         <div  className="flex justify-center">
           <ul className="list-group" style={{ width: '80%' }}>
             <li style={{border:"none"}} className="list-group-item flex justify-center items-center">
@@ -273,7 +287,19 @@ const ReviewPopUp = ({ id }) => {
             </li>
           </ul>
         </div>
-      )}
+   
+
+      <div style={{ marginTop: '2%' }}>
+        {reviewList && Object.keys(reviewList).length ? (
+          reviewList.map((movie) => (
+            <>
+              <ReviewCard movie={movie} data={reviewList} setData={setReviewList} key={id} />
+            </>
+          ))
+        ) : (
+          <p className="text-center">No reviews found.</p>
+        )}
+      </div>
     </>
   );
 };

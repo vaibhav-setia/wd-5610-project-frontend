@@ -78,8 +78,9 @@ const ReviewCard = (props) => {
                   {movie.movie[0].title}
                 </Link>
                 <span
+                  style={{marginLeft:"3%"}}
                   type="button"
-                  class="btn btn-primary-info btn-sm disabled badge bg-primary"
+                  class="btn btn-primary-info btn-sm disabled badge"
                 >
                   {spoilerTitle}
                 </span>

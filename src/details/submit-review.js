@@ -107,7 +107,6 @@ function SubmitReview(){
              <div className="d-flex col">
              <select className="form-select" onChange={handleDropdownChange} style={{ width: '50%' }}>
                 <option value="">Select Review Duration</option>
-                <option value="0">0</option>
                 <option value="15">15</option>
                 <option value="20">20</option>
                 <option value="30">30</option>
@@ -117,10 +116,11 @@ function SubmitReview(){
              </div>
        </div>
         <p>in submit review for movie {id} end period {reviewEndPeriod}: {review}</p>
+        
         {data && Object.keys(data).length ? (
           data.map((movie) => (
             <>
-            {/* <p>inside</p> */}
+    
             <ReviewCard movie={movie} data={review} setData={setData} key={id} />
           </>
           ))

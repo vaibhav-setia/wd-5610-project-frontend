@@ -22,9 +22,9 @@ function Profile({ profileId = "" }) {
   }, []);
 
   return (
-    <div className="">
+    <div >
       <NavBar />
-      <div className="row">
+      <div style={{marginLeft:"5%"}} className="row">
         <div className="col col-3 m-2">
           <PersonalDetails profileId={profileId} />
         </div>
