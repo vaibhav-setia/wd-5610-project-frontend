@@ -9,7 +9,7 @@ import { ProfileSpoilers } from "../profile/profile-spoilers";
 function Home() {
   const getAllReviews = async () => {
     const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviews?limit=20&pageNo=1`;
-
+    
     let apiResponse = await fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -18,12 +18,14 @@ function Home() {
 
     return jsonResponse;
   };
+  const [loading, setLoading] = useState(false);
   let userId = useSelector((state) => state.user.id);
   let [data, setData] = useState([]);
 
   useEffect(() => {
     getAllReviews().then((response) => {
       setData(response.data);
+      setLoading(true);
     });
   }, [userId]);
 
@@ -53,7 +55,7 @@ function Home() {
             </div>
           </div>
 
-          {Object.keys(data).length ? (
+          {loading ? Object.keys(data).length ? (
             data.map((movie) => (
               <ReviewCard
                 movie={movie}
@@ -64,7 +66,7 @@ function Home() {
             ))
           ) : (
             <p className="text-center">No reviews found.</p>
-          )}
+          ) :<p className="text-center">Loading...</p> }
         </div>
         {userId && (
           <div className="col-span-3 grid grid-cols-1 mt-8">
