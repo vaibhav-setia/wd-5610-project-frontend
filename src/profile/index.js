@@ -29,11 +29,10 @@ function Profile({ profileId = "" }) {
           <PersonalDetails profileId={profileId} />
         </div>
         <div className="col col-8 m-2">
-          <ProfileSpoilers />
+          <ProfileSpoilers profileId={profileId} />
         </div>
       </div>
     </div>
-    
   );
 }
 

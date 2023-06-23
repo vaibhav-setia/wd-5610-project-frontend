@@ -8,10 +8,13 @@ export const getFollowStatus = async (followerId, followeeId) => {
 };
 
 export const follow = async (followerId, followeeId) => {
-  const response = await axios.post(`${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/follow/follow`, {
-    followerId: followerId,
-    followeeId: followeeId,
-  });
+  const response = await axios.post(
+    `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/follow/follow`,
+    {
+      followerId: followerId,
+      followeeId: followeeId,
+    }
+  );
   return response.data;
 };
 
@@ -35,7 +38,7 @@ export const getFollowers = async (userId) => {
 
 export const getFollowing = async (userId) => {
   const response = await axios.get(
-    `${process.env.REACT_APP_BACKEND_API_BASE_URL}/follow/following/${userId}`
+    `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/follow/following/${userId}`
   );
   return response.data;
 };
