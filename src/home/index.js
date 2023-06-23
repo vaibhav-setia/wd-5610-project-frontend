@@ -7,7 +7,7 @@ import ReviewCard from "./reviewcard";
 
 function Home() {
   const getAllReviews = async () => {
-    const url = `http://localhost:3001/api/review/getAllReviews?limit=20&pageNo=1`;
+    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviews?limit=20&pageNo=1`;
 
     let apiResponse = await fetch(url, {
       method: "GET",

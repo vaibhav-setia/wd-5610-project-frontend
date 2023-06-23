@@ -1,14 +1,14 @@
 import axios from "axios";
 export const getFollowStatus = async (followerId, followeeId) => {
   const response = await axios.get(
-    `http://localhost:3001/api/follow/isFollowing/${followerId}/${followeeId}`
+    `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/follow/isFollowing/${followerId}/${followeeId}`
   );
   const isFollowing = response.data;
   return isFollowing;
 };
 
 export const follow = async (followerId, followeeId) => {
-  const response = await axios.post("http://localhost:3001/api/follow/follow", {
+  const response = await axios.post(`${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/follow/follow`, {
     followerId: followerId,
     followeeId: followeeId,
   });
@@ -17,7 +17,7 @@ export const follow = async (followerId, followeeId) => {
 
 export const unfollow = async (followerId, followeeId) => {
   const response = await axios.post(
-    "http://localhost:3001/api/follow/unfollow",
+    `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/follow/unfollow`,
     {
       followerId: followerId,
       followeeId: followeeId,
@@ -28,14 +28,14 @@ export const unfollow = async (followerId, followeeId) => {
 
 export const getFollowers = async (userId) => {
   const response = await axios.get(
-    `http://localhost:3001/api/follow/followers/${userId}`
+    `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/follow/followers/${userId}`
   );
   return response.data;
 };
 
 export const getFollowing = async (userId) => {
   const response = await axios.get(
-    `http://localhost:3001/api/follow/following/${userId}`
+    `${process.env.REACT_APP_BACKEND_API_BASE_URL}/follow/following/${userId}`
   );
   return response.data;
 };

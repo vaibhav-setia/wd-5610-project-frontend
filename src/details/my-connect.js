@@ -30,7 +30,7 @@ function MyComponent(param) {
 
   const fetchData = async () => {
     try {
-      const response=await fetch('http://localhost:3001/api/detail?id='+id);
+      const response=await fetch(`${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/detail?id=`+id);
       // const response = await fetch('https://www.omdbapi.com/?i='+id+'&apikey=320622dc'); // Replace with your API endpoint
       const jsonData = await response.json();
       setData(jsonData);

@@ -18,7 +18,7 @@ const ReviewCard = (props) => {
   console.log(props)
 
   const deleteReview = async () => {
-    const url = `http://localhost:3001/api/review/` + movie.id;
+    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/` + movie.id;
     let apiResponse = await fetch(url, {
       method: "DELETE",
       headers: {

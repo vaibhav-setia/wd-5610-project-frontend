@@ -46,7 +46,7 @@ const Vote = (props) => {
   };
 
   const saveVoteChange = async (review_id, voteType) => {
-    const url = `http://localhost:3001/api/review/vote`;
+    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/vote`;
     let apiResonse = await fetch(url, {
       method: "POST",
       headers: {
@@ -63,7 +63,7 @@ const Vote = (props) => {
   };
 
   const saveUnVoteChange = async (review_id, voteType) => {
-    const url = `http://localhost:3001/api/review/unvote`;
+    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/unvote`;
     let apiResonse = await fetch(url, {
       method: "POST",
       headers: {

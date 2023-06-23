@@ -38,18 +38,9 @@ function NavBar() {
   };
 
   const onLogIn = async (response) => {
-    // let apiResonse = await fetch(`http://localhost:3001/api/login`, {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ token: response.credential }),
-    // });
-    // apiResonse = await apiResonse.json();
-    // shouldReloadRef.current = true;
+
     dispatch(loginThunk({ token: response.credential }));
-    // console.log(apiResonse.data);
-    // if (apiResonse.data.newUser) {
-    //   navigate("/register");
-    // }
+
   };
 
   const errorMessage = (error) => {

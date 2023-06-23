@@ -10,7 +10,7 @@ function ReviewForm(param) {
     const {reviewEndPeriod}=useParams();
     // const reviewEndPeriod=param.reviewEndPeriod||1000;
     const getAllReviews = async () => {
-      const url = "http://localhost:3001/api/review/getAllReviewsForMoviePeriod?pageNo=1&limit=5&movieId="+id+"&reviewEndPeriod="+reviewEndPeriod;
+      const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviewsForMoviePeriod?pageNo=1&limit=5&movieId="+id+"&reviewEndPeriod=`+reviewEndPeriod;
   
       let apiResponse = await fetch(url, {
         method: "GET",

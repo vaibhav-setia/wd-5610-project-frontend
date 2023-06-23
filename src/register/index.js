@@ -22,7 +22,7 @@ function Profile() {
   };
 
   const signUp = async () => {
-    await fetch(`http://localhost:3001/api/user`, {
+    await fetch(`${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/user`, {
       method: "PUT",
       headers: { "Content-Type": "application/json", token },
       body: JSON.stringify({

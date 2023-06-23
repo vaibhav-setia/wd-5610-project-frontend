@@ -20,7 +20,7 @@ function SubmitReview(){
     }
     const fetchData = async () => {
         try {
-          const response=await fetch('http://localhost:3001/api/detail?id='+id);
+          const response=await fetch(`${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/detail?id`+id);
           // const response = await fetch('https://www.omdbapi.com/?i='+id+'&apikey=320622dc'); // Replace with your API endpoint
           const jsonData = await response.json();
           setTotalData(jsonData);
@@ -41,7 +41,7 @@ function SubmitReview(){
                 }
             };
     
-        fetch('http://localhost:3001/api/review', {
+        fetch(`${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ function SubmitReview(){
       };
 
       const getAllReviews = async () => {
-        const url = "http://localhost:3001/api/review/getAllReviewsForMoviePeriod?pageNo=1&limit=5&movieId="+id+"&reviewEndPeriod=1000";
+        const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviewsForMoviePeriod?pageNo=1&limit=5&movieId="+id+"&reviewEndPeriod=1000`;
     
         let apiResponse = await fetch(url, {
           method: "GET",

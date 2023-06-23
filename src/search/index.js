@@ -7,7 +7,7 @@ import { useState } from "react";
 import "./index.css";
 
 const getInitialList = async (criteria, page) => {
-  const url = `http://localhost:3001/api/search?criteria=${criteria}&page=${page}`;
+  const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/search?criteria=${criteria}&page=${page}`;
 
   const apiResponse = await fetch(url, {
     method: "GET",
