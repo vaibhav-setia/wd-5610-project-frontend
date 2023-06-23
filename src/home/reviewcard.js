@@ -121,7 +121,7 @@ const ReviewCard = (props) => {
                     data-toggle="tooltip"
                     data-placement="top"
                     title="Delete"
-                    onClick={deleteReview}
+                    onClick={()=>deleteReview(movie.userId)}
                   >
                     <FontAwesomeIcon icon={faTrash} className="text-red-500" />
                   </button>
