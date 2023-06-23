@@ -5,26 +5,21 @@ import { getAllReviewsForUserThunk } from "../services/profile-thunk";
 
 function ProfileSpoilers({ profileId = "" }) {
   let [data, setData] = useState([]);
-
+  let [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     async function fetchReviews() {
       const { payload } = await dispatch(getAllReviewsForUserThunk(profileId));
       setData(payload.data);
+      setLoading(true);
     }
 
     fetchReviews();
   }, [profileId]);
   return (
     <div>
-         <div className=" py-8">
-            <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-              <h1 className="text-blue-500 text-4xl font-bold text-center animate-fade-in">
-              Your spoilers
-              </h1>
-            </div>
-          </div>
-      {Object.keys(data).length ? (
+      <h2 className="ms-5 mb-5">Your spoilers</h2>
+      {loading ? Object.keys(data).length ? (
         data.map((movie) => (
           <ReviewCard
             movie={movie}
@@ -35,7 +30,7 @@ function ProfileSpoilers({ profileId = "" }) {
         ))
       ) : (
         <p className="text-center">No reviews found.</p>
-      )}
+      ) :<p className="text-center">Loading...</p> }
     </div>
   );
 }
