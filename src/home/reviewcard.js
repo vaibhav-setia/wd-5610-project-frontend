@@ -54,7 +54,7 @@ const ReviewCard = (props) => {
               movie={props.movie}
             />
           </div>
-          <div className="w-1/6 flex-shrink-0">
+          <div className=" flex-shrink-0">
             <Link to={`/details/${movie.movieId}`} className="text-blue-500">
               <img
                 src={movie.movie[0].poster}
