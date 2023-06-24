@@ -6,6 +6,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 
 const ReviewPopUp = ({ id }) => {
   const [showPopup, setShowPopup] = useState(false);
+  const isLoggedIn = useSelector(state=> state.user.login);
   const [data, setData] = useState(null);
   const token = useSelector(userToken);
   const [review, setReview] = useState('');
@@ -163,7 +164,7 @@ const ReviewPopUp = ({ id }) => {
             </Modal.Footer>
           </Modal>
         }
-          <>
+          {isLoggedIn&&<>
             <div className="flex-grow">
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded-lg"
@@ -182,7 +183,7 @@ const ReviewPopUp = ({ id }) => {
                 </select>
               </div>
             </div>
-          </>
+          </>}
         
       </div>
 
