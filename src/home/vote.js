@@ -15,8 +15,6 @@ const Vote = (props) => {
 
 
   useEffect(() => {
-    console.log(userId)
-    console.log(movie)
     if( movie.downvotes.find((user) => user.userId === userId)){
       setVote(-1);
       setScore(score + 1);
@@ -24,7 +22,6 @@ const Vote = (props) => {
       setVote(1);
       setScore(score - 1);
     } else{
-      console.log("Hi i am here")
       setScore(score+vote)
       setVote(0)
     }
@@ -59,7 +56,6 @@ const Vote = (props) => {
       }),
     });
     const tjson = await apiResonse.json();
-    console.log(tjson);
   };
 
   const saveUnVoteChange = async (review_id, voteType) => {

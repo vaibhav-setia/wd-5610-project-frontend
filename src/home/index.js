@@ -7,29 +7,33 @@ import ReviewCard from "./reviewcard";
 import { ProfileSpoilers } from "../profile/profile-spoilers";
 
 function Home() {
-  const getAllReviews = async () => {
-    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviews?limit=20&pageNo=1`;
+  const getAllReviews = async (count) => {
+    console.log(count)
+    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviews?limit=1&pageNo=`+count;
     
     let apiResponse = await fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
     const jsonResponse = await apiResponse.json();
-
     return jsonResponse;
   };
   const [loading, setLoading] = useState(false);
   let userId = useSelector((state) => state.user.id);
   let [data, setData] = useState([]);
-
+  const [pageCount, setPageCount] = useState(1);
   useEffect(() => {
-    getAllReviews().then((response) => {
+    getAllReviews(pageCount).then((response) => {
       setData(response.data);
       setLoading(true);
     });
   }, [userId]);
-
-  console.log(data);
+  const getMoreData = async () => {
+    setPageCount(pageCount+1);
+    getAllReviews(pageCount+1).then((response) => {
+      setData(data => [...data, ...response.data]);
+    });
+  }
 
   return (
     <div>
@@ -67,7 +71,13 @@ function Home() {
           ) : (
             <p className="text-center">No reviews found.</p>
           ) :<p className="text-center">Loading...</p> }
+    
+            <MDBBtn color="primary" onClick={getMoreData} className="btn-sm">
+          Load More
+        </MDBBtn>
         </div>
+
+     
         {userId && (
           <div className="col-span-3 grid grid-cols-1 mt-8">
             <ProfileSpoilers profileId={userId} showToggles={false}/>

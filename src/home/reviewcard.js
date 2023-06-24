@@ -23,8 +23,6 @@ const ReviewCard = (props) => {
     movie.reviewEndPeriod !== 1000
       ? movie.reviewEndPeriod + " Minute Spoiler"
       : "Full Spoiler!";
-  console.log(props);
-
   const deleteReview = async (userId) => {
     const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/` + movie.id;
     let apiResponse = await fetch(url, {
@@ -81,7 +79,7 @@ const ReviewCard = (props) => {
                 <span
                   style={{marginLeft:"3%"}}
                   type="button"
-                  class="btn btn-primary-info btn-sm disabled badge"
+                  className="btn btn-primary-info btn-sm disabled badge"
                 >
                   {spoilerTitle}
                 </span>

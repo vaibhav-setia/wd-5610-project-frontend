@@ -19,13 +19,8 @@ function NavBar() {
   const currentPath = location.pathname;
 
   const shouldReloadRef = useRef(false);
-  // useEffect(() => {
-  //   console.log(currentPath);
-  // });
   useEffect(() => {
-    console.log(isNewUser,isNewUser===true)
     if(isNewUser===true){
-      console.log("oii")
       navigate("/register")
       dispatch(setOldUser())
     }

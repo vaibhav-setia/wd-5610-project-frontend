@@ -49,7 +49,6 @@ export const { logInUser, logOutUser, setOldUser, setUserType } =
   userSlice.actions;
 
 export const userLogin = (state) =>{ 
-  console.log(state)
   return state.user.login;
 }
 export const userToken = (state) => state.user.accessToken;
