@@ -5,12 +5,11 @@ import { useSelector } from "react-redux";
 import SearchBox from "./searchbox";
 import ReviewCard from "./reviewcard";
 import { ProfileSpoilers } from "../profile/profile-spoilers";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function Home() {
   const getAllReviews = async (count) => {
-    console.log(count)
-    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviews?limit=1&pageNo=`+count;
-    
+    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviews?limit=3&pageNo=`+count;
     let apiResponse = await fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -45,8 +44,8 @@ function Home() {
         <SearchBox />
       </div>
 
-      <div className="grid grid-cols-8">
-        <div
+      <div className="grid grid-cols-8" id="scrollableDiv" style={{ height: "100%", overflowY: "scroll" }} >
+        <div 
           className={`grid grid-cols-1 gap-4 mt-8 ${
             userId ? "col-span-5" : "col-span-8"
           }`}
@@ -59,28 +58,42 @@ function Home() {
             </div>
           </div>
 
-          {loading ? Object.keys(data).length ? (
-            data.map((movie) => (
-              <ReviewCard
-                movie={movie}
-                data={data}
-                setData={setData}
-                key={movie.id}
-              />
-            ))
-          ) : (
-            <p className="text-center">No reviews found.</p>
-          ) :<p className="text-center">Loading...</p> }
+          <InfiniteScroll
+     dataLength={data.length}
+     next={() => {
+      getMoreData();
+     }}
+     hasMore={true}
+     loader={<h4>Loading...</h4>}
+     endMessage={
+       <p style={{ textAlign: "center" }}>
+         <b>No More reviews to be shown!</b>
+       </p>
+     }
+
+   >
     
-            <MDBBtn color="primary" onClick={getMoreData} className="btn-sm">
-          Load More
-        </MDBBtn>
+       {
+        Object.keys(data).length ? (
+          data.map((movie) => (
+            <ReviewCard
+              movie={movie}
+              data={data}
+              setData={setData}
+              key={movie.id}
+            />
+          ))
+        ) : (
+          <p className="text-center">No reviews found.</p>)
+       }
+    
+   </InfiniteScroll>
         </div>
 
      
         {userId && (
           <div className="col-span-3 grid grid-cols-1 mt-8">
-            <ProfileSpoilers profileId={userId} showToggles={false}/>
+            <ProfileSpoilers profileId={userId} showToggles={false} slice={true}/>
           </div>
         )}
       </div>
