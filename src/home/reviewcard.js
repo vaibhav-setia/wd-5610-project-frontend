@@ -41,11 +41,13 @@ const ReviewCard = (props) => {
   const initModal = () => {
     invokeModal(!isShow);
   };
+  const cardImageClass = showToggles ? 'h-52' : 'h-46';
 
   return (
     <div className="flex items-center justify-center">
       <div className="w-4/5">
         <div className="bg-white shadow-md rounded-md p-4 flex">
+        <div>
           {showToggles && <div className="w-1/6">
             <Vote
               score={movie.totalUpvotes - movie.totalDownvotes}
@@ -53,11 +55,12 @@ const ReviewCard = (props) => {
               movie={props.movie}
             />
           </div>}
-          <div className=" flex-shrink-0">
+          </div>
+          <div className="w-1/6  flex-shrink-0">
             <Link to={`/details/${movie.movieId}`} className="text-blue-500">
               <img
                 src={movie.movie[0].poster}
-                className="card-img-top h-52 w-auto object-cover"
+                className={`card-img-top ${cardImageClass} w-auto object-cover`}
                 alt="Not Found"
                 onError={({ currentTarget }) => {
                   currentTarget.onerror = null;
@@ -67,7 +70,7 @@ const ReviewCard = (props) => {
               />
             </Link>
           </div>
-          <div className="flex flex-col flex-grow pl-4">
+          <div className="w-5r/6 flex flex-col flex-grow pl-4">
             <div className="mb-2">
               <h5 className="text-lg font-bold">
                 <Link

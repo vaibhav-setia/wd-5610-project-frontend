@@ -61,9 +61,10 @@ const ReviewPopUp = ({ id }) => {
     setShowPopup(!showPopup);
   };
 
-  const getAllReviews = async () => {
+  const getAllReviews = async (endPeriodVar=null) => {
+    if(endPeriodVar==null)endPeriodVar=reviewEndPeriod
    
-    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviewsForMoviePeriod?pageNo=1&limit=5&movieId=${id}&reviewEndPeriod=`+reviewEndPeriod;
+    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviewsForMoviePeriod?pageNo=1&limit=5&movieId=${id}&reviewEndPeriod=`+endPeriodVar;
 
     let apiResponse = await fetch(url, {
       method: 'GET',
@@ -77,10 +78,10 @@ const ReviewPopUp = ({ id }) => {
     getAllReviews();
   }, []);
 
-  const handleDropdownChange = (event) => {
+  const handleDropdownChange =  (event) => {
     const selectedDuration = event.target.value;
     setReviewEndPeriod(selectedDuration)
-    getAllReviews();
+    getAllReviews(selectedDuration);
   };
 
   const handleDropdownChangePopup = (event) => {
@@ -182,7 +183,7 @@ const ReviewPopUp = ({ id }) => {
                   <option selected value="1000">All Time</option>
                 </select>
               </div>
-            </div>
+            </div>                                              
           </>}
         
       </div>

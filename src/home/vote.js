@@ -74,24 +74,30 @@ const Vote = (props) => {
 
   return (
     <div align="center">
-      <button
-        className={`btn btn-${vote === 1 ? 'success' : 'light'}`}
-        id="upvote"
-        onClick={() => voteChange(1)}
-        disabled={!isLoggedIn}
-      >
-        <FontAwesomeIcon icon={faCircleUp} size="2xl" />
-      </button>
-      <h1>{score + vote}</h1>
-      <button
-        className={`btn btn-${vote === -1 ? 'danger' : 'light'}`}
-        id="downvote"
-        onClick={() => voteChange(-1)}
-        disabled={!isLoggedIn}
-      >
-       <FontAwesomeIcon icon={faCircleUp} rotation={180} size="2xl" />
-      </button>
-    </div>
+ <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+  <button
+    className={`btn btn-${vote === 1 ? 'success' : 'light'}`}
+    id="upvote"
+    onClick={() => voteChange(1)}
+    disabled={!isLoggedIn}
+  >
+    <FontAwesomeIcon icon={faCircleUp} size="2xl" />
+  </button>
+  <div>
+    <h1 style={{ margin: '0' }}>{score + vote}</h1>
+  </div>
+  <button
+    className={`btn btn-${vote === -1 ? 'danger' : 'light'}`}
+    id="downvote"
+    onClick={() => voteChange(-1)}
+    disabled={!isLoggedIn}
+  >
+    <FontAwesomeIcon icon={faCircleUp} rotation={180} size="2xl" />
+  </button>
+</div>
+
+  </div>
+  
   );
   }  
 
