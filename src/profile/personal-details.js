@@ -96,7 +96,7 @@ function PersonalDetails({ profileId = "" }) {
           }
         ></input>
       )}
-      {selfProfile && !editMode && (
+      {(selfProfile || currentUser.user_type === "admin") && !editMode && (
         <div className="mt-2 mb-2 text-center">{profile.email}</div>
       )}
       {selfProfile && editMode && (
@@ -110,10 +110,10 @@ function PersonalDetails({ profileId = "" }) {
           }
         ></input>
       )}
-      {selfProfile && !editMode && (
+      {(selfProfile || currentUser.user_type === "admin") && !editMode && (
         <div className="mt-2 mb-2 text-center">{profile.phone}</div>
       )}
-      {selfProfile && editMode && (
+      {(selfProfile || currentUser.user_type === "admin") && editMode && (
         <input
           className="mt-2 mb-2 form-control"
           type="text"
@@ -168,7 +168,7 @@ function PersonalDetails({ profileId = "" }) {
           {isFollowing ? "Unfollow" : "Follow"}
         </button>
       )}
-      {selfProfile && (
+      {(selfProfile || currentUser.user_type === "admin") && (
         <button
           className="btn btn-secondary mt-2 mb-2 w-full"
           onClick={() => handleEditMode()}
