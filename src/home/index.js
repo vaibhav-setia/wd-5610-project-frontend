@@ -67,9 +67,7 @@ function Home() {
      hasMore={data.length < totalCount}
      loader={<h4>Loading...</h4>}
      endMessage={
-       <p style={{ textAlign: "center" }}>
-         <b>No More reviews!!!</b>
-       </p>
+      " "
      }
 
    >
@@ -82,10 +80,12 @@ function Home() {
               data={data}
               setData={setData}
               key={movie.id}
+              totalCount={totalCount}
+              setTotalCount={setTotalCount}
             />
           ))
         ) : (
-          "")
+          "No reviews found.")
        }
     
    </InfiniteScroll>

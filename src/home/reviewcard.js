@@ -39,6 +39,9 @@ const ReviewCard = (props) => {
     if(props.setSpoilerCount){
       props.setSpoilerCount(props.spoilerCount-1);
     }
+    if(props.setTotalCount){
+      props.setTotalCount(props.totalCount-1);
+    }
   };
 
   const initModal = () => {
