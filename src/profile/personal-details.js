@@ -142,21 +142,25 @@ function PersonalDetails({ profileId = "" }) {
           <div className="text-center">
             {profile.spoilers} <br /> Spoilers
           </div>
-          <Link to={`/following/${profileId}`} className="text-decoration-none link-dark">
+          <Link
+            to={`/following/${profileId}`}
+            className="text-decoration-none link-dark"
+          >
             <div className="text-center">
               {profile.following} <br /> Following
             </div>
-            </Link>
-            <Link to={`/followers/${profileId}`}
+          </Link>
+          <Link
+            to={`/followers/${profileId}`}
             className="text-decoration-none link-dark"
           >
             <div className="text-center">
               {profile.followers} <br /> Followers
             </div>
-            </Link>
+          </Link>
         </div>
       </div>
-      {!selfProfile && (
+      {currentUser.login && !selfProfile && (
         <button
           className="btn btn-success mt-2 mb-2 w-100"
           onClick={() => handleFollowUnfollow()}
