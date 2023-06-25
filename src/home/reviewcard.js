@@ -42,6 +42,9 @@ const ReviewCard = (props) => {
     if(props.setTotalCount){
       props.setTotalCount(props.totalCount-1);
     }
+    if(props.setModifiedId){
+      props.setModifiedId(movie.id);
+    }
   };
 
   const initModal = () => {

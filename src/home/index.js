@@ -22,6 +22,7 @@ function Home() {
   let [data, setData] = useState([]);
   let [totalCount, setTotalCount] = useState(0);
   const [pageCount, setPageCount] = useState(1);
+  let [modifiedId, setModifiedId] = useState(null);
   useEffect(() => {
     getAllReviews(pageCount).then((response) => {
       setData(response.data);
@@ -82,6 +83,8 @@ function Home() {
               key={movie.id}
               totalCount={totalCount}
               setTotalCount={setTotalCount}
+              modifiedId={modifiedId}
+              setModifiedId={setModifiedId}
             />
           ))
         ) : (
@@ -94,7 +97,7 @@ function Home() {
      
         {userId && (
           <div className="col-span-3 grid grid-cols-1 mt-8">
-            <ProfileSpoilers profileId={userId} showToggles={false} slice={true}/>
+            <ProfileSpoilers profileId={userId} showToggles={false} slice={true} modifiedId={modifiedId}/>
           </div>
         )}
       </div>
