@@ -68,7 +68,7 @@ function Home() {
      loader={<h4>Loading...</h4>}
      endMessage={
        <p style={{ textAlign: "center" }}>
-         <b>No More reviews to be shown!</b>
+         <b>No More reviews!!!</b>
        </p>
      }
 
@@ -85,7 +85,7 @@ function Home() {
             />
           ))
         ) : (
-          <p className="text-center">No reviews found.</p>)
+          "")
        }
     
    </InfiniteScroll>
