@@ -20,10 +20,12 @@ function Home() {
   const [loading, setLoading] = useState(false);
   let userId = useSelector((state) => state.user.id);
   let [data, setData] = useState([]);
+  let [totalCount, setTotalCount] = useState(0);
   const [pageCount, setPageCount] = useState(1);
   useEffect(() => {
     getAllReviews(pageCount).then((response) => {
       setData(response.data);
+      setTotalCount(response.totalCount);
       setLoading(true);
     });
   }, [userId]);
@@ -57,13 +59,12 @@ function Home() {
               </h1>
             </div>
           </div>
-
           <InfiniteScroll
      dataLength={data.length}
      next={() => {
       getMoreData();
      }}
-     hasMore={true}
+     hasMore={data.length < totalCount}
      loader={<h4>Loading...</h4>}
      endMessage={
        <p style={{ textAlign: "center" }}>
