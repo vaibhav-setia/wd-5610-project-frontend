@@ -23,29 +23,31 @@ const ReviewCard = (props) => {
     movie.reviewEndPeriod !== 1000
       ? movie.reviewEndPeriod + " Minute Spoiler"
       : "Full Spoiler!";
-  const deleteReview = async (userId) => {
-    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/` + movie.id;
-    let apiResponse = await fetch(url, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        token: token,
-        userId : userId,
-      },
-    });
-    await apiResponse.json();
-    const tdata = props.data.filter((review) => review.id !== movie.id);
-    props.setData(tdata);
-    if(props.setSpoilerCount){
-      props.setSpoilerCount(props.spoilerCount-1);
-    }
-    if(props.setTotalCount){
-      props.setTotalCount(props.totalCount-1);
-    }
-    if(props.setModifiedId){
-      props.setModifiedId(movie.id);
-    }
-  };
+      const deleteReview = async (userId) => {
+        const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/` + movie.id;
+        let apiResponse = await fetch(url, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            token: token,
+            userId: userId,
+          },
+        });
+        await apiResponse.json();
+        const tdata = props.data.filter((review) => review.id !== movie.id);
+        props.setData(tdata); // Update the reviewList state
+        console.log(tdata);
+        if (props.setSpoilerCount) {
+          props.setSpoilerCount(props.spoilerCount - 1);
+        }
+        if (props.setTotalCount) {
+          props.setTotalCount(props.totalCount - 1);
+        }
+        if (props.setModifiedId) {
+          props.setModifiedId(movie.id);
+        }
+      };
+      
 
   const initModal = () => {
     invokeModal(!isShow);
@@ -53,7 +55,9 @@ const ReviewCard = (props) => {
   const cardImageClass = showToggles ? 'h-52' : 'h-46';
 
   return (
-    <div className="flex items-center justify-center">
+    <>
+  
+  <div className="flex items-center justify-center">
       <div className="w-4/5">
         <div className="bg-white shadow-md rounded-md p-4 flex">
         <div>
@@ -105,7 +109,7 @@ const ReviewCard = (props) => {
                 </Link>
               </div>
               <p className="text-gray-700 overflow-hidden overflow-ellipsis">
-                {movieDescription}
+                {movie.description}
               </p>
             </div>
 
@@ -151,6 +155,7 @@ const ReviewCard = (props) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

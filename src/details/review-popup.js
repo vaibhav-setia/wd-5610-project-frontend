@@ -13,7 +13,7 @@ const ReviewPopUp = ({ id }) => {
   const [reviewEndPeriod, setReviewEndPeriod] = useState(1000);
 
   const [reviewEndPeriodPopup, setReviewEndPeriodPopup] = useState(1000);
-  const [reviewList, setReviewList] = useState('');
+  const [reviewList, setReviewList] = useState([]);
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
@@ -25,7 +25,7 @@ const ReviewPopUp = ({ id }) => {
       // Review is null or empty
       return;
     }
-
+  
     const postData = {
       description: review,
       reviewEndPeriod: reviewEndPeriodPopup,
@@ -37,7 +37,7 @@ const ReviewPopUp = ({ id }) => {
         Poster: data.Poster,
       },
     };
-
+  
     fetch(`${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review`, {
       method: 'POST',
       headers: {
@@ -50,29 +50,38 @@ const ReviewPopUp = ({ id }) => {
       .then((data) => {
         // Handle the response data
         getAllReviews();
-        setReviewEndPeriodPopup(1000)
-        console.log(data);
+        setReviewEndPeriodPopup(1000);
+        setReviewList([]); // Clear the reviewList state
       })
       .catch((error) => {
         // Handle any errors
         console.error(error);
       });
-
+  
     setShowPopup(!showPopup);
   };
+  
 
-  const getAllReviews = async (endPeriodVar=null) => {
-    if(endPeriodVar==null)endPeriodVar=reviewEndPeriod
-   
-    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviewsForMoviePeriod?pageNo=1&limit=5&movieId=${id}&reviewEndPeriod=`+endPeriodVar;
-
-    let apiResponse = await fetch(url, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const jsonResponse = await apiResponse.json();
-    setReviewList(jsonResponse.data);
+  const getAllReviews = async (endPeriodVar = null) => {
+    if (endPeriodVar == null) {
+      endPeriodVar = reviewEndPeriod;
+    }
+  
+    const url = `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviewsForMoviePeriod?pageNo=1&limit=5&movieId=${id}&reviewEndPeriod=` + endPeriodVar;
+  
+    try {
+      const apiResponse = await fetch(url, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const jsonResponse = await apiResponse.json();
+  
+      setReviewList(jsonResponse.data);
+    } catch (error) {
+      console.error('Error retrieving reviews:', error);
+    }
   };
+  
 
   useEffect(() => {
     getAllReviews();
@@ -292,10 +301,13 @@ const ReviewPopUp = ({ id }) => {
    
 
       <div style={{ marginTop: '2%' }}>
+  
         {reviewList && Object.keys(reviewList).length ? (
           reviewList.map((movie) => (
+            
             <>
               <ReviewCard movie={movie} data={reviewList} setData={setReviewList} key={id} />
+
             </>
           ))
         ) : (
