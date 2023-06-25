@@ -36,6 +36,9 @@ const ReviewCard = (props) => {
     await apiResponse.json();
     const tdata = props.data.filter((review) => review.id !== movie.id);
     props.setData(tdata);
+    if(props.setSpoilerCount){
+      props.setSpoilerCount(props.spoilerCount-1);
+    }
   };
 
   const initModal = () => {

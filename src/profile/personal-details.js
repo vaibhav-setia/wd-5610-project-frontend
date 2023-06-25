@@ -9,7 +9,7 @@ import {
 } from "../services/follow-thunk";
 import { Link } from "react-router-dom";
 
-function PersonalDetails({ profileId = "" }) {
+function PersonalDetails({ profileId = "", spoilerCount, setSpoilerCount }) {
   const [editMode, setEditMode] = useState(false);
   const [selfProfile, setSelfProfile] = useState("");
   const [isFollowing, setIsFollowing] = useState(false);
@@ -21,7 +21,7 @@ function PersonalDetails({ profileId = "" }) {
     bio: "",
     followers: "",
     following: "",
-    spoilers: "",
+    spoilers: spoilerCount,
   });
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user);
@@ -57,9 +57,11 @@ function PersonalDetails({ profileId = "" }) {
     async function loadProfile() {
       const { payload } = await dispatch(getUserThunk(profileId));
       setProfile(payload.data);
+      setSpoilerCount(payload.data.spoilers);
       if (profileId === currentUser.id) setSelfProfile(true);
     }
 
+   
     async function getFollowStatus() {
       const { payload } = await dispatch(
         getFollowStatusThunk({
@@ -72,7 +74,9 @@ function PersonalDetails({ profileId = "" }) {
     loadProfile();
     getFollowStatus();
   }, [profileId]);
-
+  useEffect(() => {
+      setProfile({ ...profile, spoilers: spoilerCount });
+  }, [spoilerCount]);
   return (
     <div>
       <div className="text-center">
