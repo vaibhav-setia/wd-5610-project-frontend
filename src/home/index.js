@@ -88,7 +88,9 @@ function Home() {
             />
           ))
         ) : (
-          "No reviews found.")
+          <center>
+          No reviews found.
+          </center>)
        }
     
    </InfiniteScroll>
