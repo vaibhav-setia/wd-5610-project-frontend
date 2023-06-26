@@ -53,7 +53,7 @@ function Home() {
             userId ? "col-span-5" : "col-span-8"
           }`}
         >
-          t 
+
         
         
           
@@ -71,7 +71,7 @@ function Home() {
    >
         <div className=" px-4 sm:px-6 lg:px-8">
               <h1 className="text-blue-500 text-4xl font-bold text-center animate-fade-in">
-                Catch all the movie reviews here!
+                Catch all the movie spoilers here!
               </h1>
             </div>
     
