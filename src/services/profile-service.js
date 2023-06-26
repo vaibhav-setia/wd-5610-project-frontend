@@ -21,7 +21,13 @@ export const updateUser = async (payload) => {
   return responseUser;
 };
 
-export const getAllReviewsForUser = async (userId) => {
+export const getAllReviewsForUser = async (userId, pageNo=null, limit=null) => {
+  if(pageNo && limit){
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviewsForUser/${userId}/${pageNo}/${limit}`
+    );
+    return response.data;
+  }
   const response = await axios.get(
     `${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/review/getAllReviewsForUser/${userId}`
   );

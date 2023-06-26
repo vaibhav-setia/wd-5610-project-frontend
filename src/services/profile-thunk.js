@@ -19,7 +19,8 @@ export const updateUserThunk = createAsyncThunk(
 
 export const getAllReviewsForUserThunk = createAsyncThunk(
   "user/getAllReviewsForUser",
-  async (userId) => {
-    return await getAllReviewsForUser(userId);
+  async (data) => {
+    const { profileId, tNo, tlimit } = data;
+    return await getAllReviewsForUser(profileId, tNo, tlimit);
   }
 );
