@@ -53,13 +53,10 @@ function Home() {
             userId ? "col-span-5" : "col-span-8"
           }`}
         >
-          <div className=" py-8">
-            <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-              <h1 className="text-blue-500 text-4xl font-bold text-center animate-fade-in">
-                Catch all the movie reviews here!
-              </h1>
-            </div>
-          </div>
+          
+        
+        
+          
           <InfiniteScroll
      dataLength={data.length}
      next={() => {
@@ -72,6 +69,11 @@ function Home() {
      }
 
    >
+        <div className=" px-4 sm:px-6 lg:px-8">
+              <h1 className="text-blue-500 text-4xl font-bold text-center animate-fade-in">
+                Catch all the movie reviews here!
+              </h1>
+            </div>
     
        {
         Object.keys(data).length ? (
@@ -102,6 +104,7 @@ function Home() {
             <ProfileSpoilers profileId={userId} showToggles={false} slice={true} modifiedId={modifiedId}/>
           </div>
         )}
+        
       </div>
     </div>
   );
