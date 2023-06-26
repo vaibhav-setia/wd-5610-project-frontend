@@ -53,7 +53,7 @@ function Home() {
             userId ? "col-span-5" : "col-span-8"
           }`}
         >
-          
+          t 
         
         
           
@@ -63,7 +63,7 @@ function Home() {
       getMoreData();
      }}
      hasMore={data.length < totalCount}
-     loader={<h4>Loading...</h4>}
+     loader={<h4><center>Loading...</center></h4>}
      endMessage={
       " "
      }
